@@ -1,0 +1,30 @@
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.logout-container button,
+.logout-container input[type="button"] {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #4f9ad3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-container button:hover,
+.logout-container input[type="button"]:hover {
+  background-color: #1f65a2;
+}
+
+@media (max-width: 768px) {
+  .logout-container button,
+  .logout-container input[type="button"] {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}

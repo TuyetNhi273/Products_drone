@@ -1,0 +1,59 @@
+/* Toàn bộ container */
+.tracking-container {
+  font-family: Arial, sans-serif;
+  margin: 20px 0; /* Chỉnh khoảng cách từ các phần khác */
+}
+
+/* Thanh Tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+  position: relative;
+  top: -320px;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #333;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  color: #3716ae;
+  border-bottom: 2px solid #3716ae;
+}
+
+.tab-count {
+  color: #3716ae;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.search-bar {
+  margin: 10px 0;
+  position: relative;
+  top: -320px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.content h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+  position: relative;
+  top: -320px;
+}

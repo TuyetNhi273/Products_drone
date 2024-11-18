@@ -1,0 +1,126 @@
+.products-layout {
+  display: flex;
+}
+
+/* style cho phần thông tin người dùng trong sidebar */
+.user-info {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+.user-sell {
+  display: flex;
+}
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  padding: 60px;
+  margin-top: -60px;
+  background-color: #a0c5e2;
+  box-shadow: 2px 2px 2px rgba(130, 150, 247, 0.526);
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar ul li a svg {
+  font-size: 18px;
+  color: #fff;
+}
+
+.sidebar ul li a:hover svg {
+  color: #007bff;
+}
+
+.sidebar input[type="button"] {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sidebar input[type="button"]:hover {
+  color: #007bff;
+}
+
+.sidebar .logout-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Menu con */
+.sub-menu {
+  padding-left: 20px;
+  margin-left: 30px;
+}
+
+.sub-menu li {
+  margin: 5px 0;
+}
+
+.sub-menu li a {
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sub-menu li a:hover {
+  color: #007bff;
+}
+
+/* Đặt màu trắng cho phần chứa Purchase Order */
+.sidebar ul li div {
+  color: #fff; /* Màu chữ và icon */
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Thêm hiệu ứng con trỏ */
+}
+
+/* Màu chữ và icon khi hover */
+.sidebar ul li div:hover {
+  color: #007bff; /* Màu xanh khi hover */
+}
+
+/* Đặt màu trắng cụ thể cho các icon trong Sidebar */
+.sidebar ul li div svg {
+  font-size: 18px; /* Kích thước icon */
+  color: #fff; /* Đặt màu trắng cho icon */
+}
+
+/* Hover icon */
+.sidebar ul li div:hover svg {
+  color: #007bff; /* Màu xanh sáng khi hover */
+}

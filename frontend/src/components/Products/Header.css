@@ -1,0 +1,75 @@
+/* General header styling */
+.header {
+  position: fixed;
+  top: 0;
+  left: 25%;
+
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  color: rgb(0, 0, 0);
+  z-index: 1000;
+}
+
+/* Nội dung khác không bị header che mất */
+body {
+  margin: 0;
+  padding-top: 60px; /* Dành không gian cho header cố định */
+}
+
+/* Logo styling */
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.header-logo span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Search bar styling */
+.header-search {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: #fff;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+.search-button img {
+  width: 35px;
+  height: 35px;
+}
+
+/* Cart icon styling */
+.header-cart img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}

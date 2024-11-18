@@ -1,0 +1,14 @@
+.style-login-gg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px !important;
+}
+.style-login-gg > div {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 1rem !important;
+  height: 48px;
+}

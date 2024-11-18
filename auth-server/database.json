@@ -1,12 +1,17 @@
 {
   "users": [
     {
-      "email": "kumar@draft.dev",
-      "password": "$2b$10$XccSsh0YszxUYbWWHQZZfeGH87YSE3pP7G4uFQyLFsELaeOLGdBO."
-    },
-    {
-      "email": "hey@kumarharsh.me",
-      "password": "$2b$10$Lrm/GG7Klwylen9MXifus.H/TardFqnvBjD8LYXXjiuzEx.kXbz2u"
+      "email": "n@gmail.com",
+      "password": "$2b$10$jBGBV0uImU0I1DZg1P5fXewYBV.k620xcQJ6h0E.txBj8qK7ibeO6",
+      "phone": "10",
+      "name": "n",
+      "gender": "",
+      "avatar": null,
+      "dob": {
+        "day": "",
+        "month": "",
+        "year": ""
+      }
     }
   ]
 }

@@ -1,33 +1,39 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "./assets/image/logo.png";
+import Login from "./components/Login/Login";
+import LoginGg from "./components/Login/LoginGg";
 
-const Home = (props) => {
-  const { loggedIn, email } = props;
-  const navigate = useNavigate();
-
-  const onButtonClick = () => {
-    if (loggedIn) {
-      localStorage.removeItem("user");
-      props.setLoggedIn(false);
-    } else {
-      navigate("/login");
-    }
-  };
-
+const Home = ({ setLoggedIn, setEmail }) => {
   return (
     <div className="mainContainer">
-      <div className={"titleContainer"}>
-        <div>Welcome To Delivery Drones Service!</div>
+      <div className="login-right">
+        <img src={Logo} alt="Logo" />
       </div>
-      <div style={{ marginTop: "50px" }}>This is the home page.</div>
-      <div className={"buttonContainer"}>
-        <input
-          className={"inputButton"}
-          type="button"
-          onClick={onButtonClick}
-          value={loggedIn ? "Log out" : "Log in"}
-        />
-        {loggedIn ? <div>Your email address is {email}</div> : <div />}
+      <div className="login-left">
+        <div className="titleContainer text-center mb-4">
+          <div>Delivery Drones Service</div>
+        </div>
+
+        <Login setLoggedIn={setLoggedIn} setEmail={setEmail} />
+        <div className="mt-4 d-flex justify-content-center align-items-center">
+          <span className="dashed-line">Or</span>
+        </div>
+        <LoginGg />
+        <Link to="/register">
+          <div
+            style={{
+              marginTop: "1rem",
+              justifyContent: "center",
+              alignContent: "center",
+              textAlign: "center",
+              marginBottom: "4rem",
+            }}
+          >
+            Don't have an account?{" "}
+            <p style={{ display: "inline", color: "blue" }}>Sign Up</p>
+          </div>
+        </Link>
       </div>
     </div>
   );

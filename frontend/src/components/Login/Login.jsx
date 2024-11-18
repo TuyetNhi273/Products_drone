@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginStart, loginFalse, loginSuccess } from "../../redux/authSlice";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -8,14 +10,17 @@ const Login = (props) => {
   const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onButtonClick = () => {
     // Set initial error values to empty
+    dispatch(loginStart());
     setEmailError("");
     setPasswordError("");
 
     // Check if the user has entered both fields correctly
     if ("" === email) {
+      dispatch(loginFalse());
       setEmailError("Please enter your email");
       return;
     }
@@ -25,16 +30,19 @@ const Login = (props) => {
         email
       )
     ) {
+      dispatch(loginFalse());
       setEmailError("Please enter a valid email");
       return;
     }
 
     if ("" === password) {
+      dispatch(loginFalse());
       setPasswordError("Please enter a password");
       return;
     }
 
-    if (password.length < 7) {
+    if (password.length < 8) {
+      dispatch(loginFalse());
       setPasswordError("The password must be 8 characters or longer");
       return;
     }
@@ -42,16 +50,20 @@ const Login = (props) => {
     // Check if email has an account associated with it
     checkAccountExists((accountExists) => {
       // If yes, log in
-      if (accountExists) logIn();
+      if (accountExists) {
+        logIn();
+      }
       // Else, ask user if they want to create a new account and if yes, then log in
-      else if (
-        window.confirm(
+      else {
+        dispatch(loginFalse());
+        const confirmSignup = window.confirm(
           "An account does not exist with this email address: " +
             email +
-            ". Do you want to create a new account?"
-        )
-      ) {
-        logIn();
+            ". Please sign up for an account."
+        );
+        if (confirmSignup) {
+          navigate("/register");
+        }
       }
     });
   };
@@ -83,26 +95,32 @@ const Login = (props) => {
       .then((r) => r.json())
       .then((r) => {
         if ("success" === r.message) {
+          console.log("r.payload", r.payload);
+          dispatch(
+            loginSuccess(JSON.stringify({ payload: r.payload, token: r.token }))
+          );
           localStorage.setItem(
             "user",
-            JSON.stringify({ email, token: r.token })
+            JSON.stringify({ payload: r.payload, token: r.token })
           );
           props.setLoggedIn(true);
-          props.setEmail(email);
           navigate("/");
         } else {
+          dispatch(loginFalse());
           window.alert("Wrong email or password");
         }
       });
   };
 
   return (
-    <div className={"mainContainer"}>
-      <div className={"titleContainer"}>
-        <div>Login</div>
+    <div className="d-flex flex-column align-items-center justify-content-center vh-100">
+      <div className="d-flex flex-column align-items-center justify-content-center fw-bolder display-1">
+        <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+          Please enter your details
+        </div>
       </div>
       <br />
-      <div className={"inputContainer"}>
+      <div className={"inputContainer "}>
         <input
           value={email}
           placeholder="Enter your email here"
@@ -122,13 +140,25 @@ const Login = (props) => {
         <label className="errorLabel">{passwordError}</label>
       </div>
       <br />
-      <div className={"inputContainer"}>
+      <div className={"inputContainer "}>
         <input
-          className={"inputButton"}
+          className={"inputButton "}
+          style={{ borderRadius: "30px", fontSize: "1.2rem" }}
           type="button"
           onClick={onButtonClick}
           value={"Log in"}
         />
+        <div
+          style={{
+            display: "inline",
+            color: "blue",
+            textAlign: "end",
+            marginTop: "0.5rem",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Forgot password?
+        </div>
       </div>
     </div>
   );
