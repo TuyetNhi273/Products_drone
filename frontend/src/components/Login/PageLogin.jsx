@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "./assets/image/logo.png";
-import Login from "./components/Login/Login";
-import LoginGg from "./components/Login/LoginGg";
+import Logo from "../../assets/image/logo.png";
+import Login from "./Login";
+import LoginGg from "./LoginGg";
 
-const Home = ({ setLoggedIn, setEmail }) => {
+const PageLogin = () => {
   return (
     <div className="mainContainer">
       <div className="login-right">
@@ -15,7 +15,7 @@ const Home = ({ setLoggedIn, setEmail }) => {
           <div>Delivery Drones Service</div>
         </div>
 
-        <Login setLoggedIn={setLoggedIn} setEmail={setEmail} />
+        <Login />
         <div className="mt-4 d-flex justify-content-center align-items-center">
           <span className="dashed-line">Or</span>
         </div>
@@ -39,4 +39,4 @@ const Home = ({ setLoggedIn, setEmail }) => {
   );
 };
 
-export default Home;
+export default PageLogin;

@@ -112,6 +112,7 @@ app.post("/auth", (req, res) => {
 app.post("/verify", (req, res) => {
   const tokenHeaderKey = "jwt-token";
   const authToken = req.headers[tokenHeaderKey];
+  console.log("tess: ", authToken);
   try {
     const verified = jwt.verify(authToken, jwtSecretKey);
     if (verified) {
@@ -145,8 +146,6 @@ app.post("/check-account", (req, res) => {
   });
 });
 
-app.listen(3080);
-
 app.post("/update-account", (req, res) => {
   const {
     name,
@@ -156,14 +155,13 @@ app.post("/update-account", (req, res) => {
     avatar,
     dob: { day, month, year },
   } = req.body;
-
+  console.log(req.body);
   const user = db
     .get("users")
     .value()
     .filter((user) => email === user.email);
 
   if (user.length === 1) {
-    // db.get("users").find({ email }).assign(req.body).write();
     const dataToUpdate = {
       name,
       phone,
@@ -174,8 +172,8 @@ app.post("/update-account", (req, res) => {
 
     const updatedUser = { ...user[0], ...dataToUpdate };
     db.get("users").find({ email }).assign(updatedUser).write();
-    res.status(200).json({ message: "success" });
     console.log("updatedUser", updatedUser);
+    res.status(200).json({ message: "success" });
   } else {
     res.status(400).json({ message: "User does not exist" });
   }
@@ -195,3 +193,5 @@ app.post("/get-user", (req, res) => {
     res.status(400).json({ message: "User does not exist" });
   }
 });
+
+app.listen(3080);

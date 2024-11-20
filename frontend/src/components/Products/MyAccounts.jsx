@@ -3,13 +3,17 @@ import "./MyAccount.css";
 import avt from "../../assets/image/avt.png"; // Import default avatar
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../redux/authSlice";
+import { useSelector } from "react-redux";
+import axiosInstance from "../../services/Axios";
+import { cloneDeep } from "lodash";
 
 function MyAccount() {
+  const user = useSelector((state) => state.auth.login.currentUser);
+
   const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [avatar, setAvatar] = useState(null);
@@ -38,19 +42,18 @@ function MyAccount() {
   );
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user")).payload;
-    if (userData) {
-      setName(userData?.name || "");
-      setEmail(userData?.email || "");
-      setPassword(userData?.password || "");
-      setPhone(userData?.phone || "");
-      setGender(userData?.gender || "");
-      setAvatar(userData?.avatar || null);
-      setDay(userData?.dob?.day || "");
-      setMonth(userData?.dob?.month || "");
-      setYear(userData?.dob?.year || "");
+    if (user && user.payload) {
+      console.log(user["payload"]);
+      setEmail(user["payload"]["email"]);
+      setName(user["payload"]["name"]);
+      setPhone(user["payload"]["phone"]);
+      setGender(user["payload"]["gender"]);
+      setAvatar(user["payload"]["avatar"]);
+      setDay(user["payload"]["dob"]["day"]);
+      setMonth(user["payload"]["dob"]["month"]);
+      setYear(user["payload"]["dob"]["year"]);
     }
-  }, []);
+  }, [user]);
 
   const handleAvatarChange = (e) => {
     setAvatar(URL.createObjectURL(e.target.files[0]));
@@ -60,30 +63,28 @@ function MyAccount() {
     const updatedUserData = {
       name,
       email,
-      password,
       phone,
       gender,
       avatar,
       dob: { day, month, year },
     };
-
-    fetch("http://localhost:3080/update-account", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedUserData),
-    })
+    axiosInstance
+      .post("/update-account", updatedUserData)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Có lỗi xảy ra khi cập nhật thông tin");
+        if (response.data.message !== "success") {
+          alert("Lỗi kết nối với server!");
+          return;
         }
-        return response.json();
-      })
-      .then((data) => {
-        alert(data.message || "Thông tin đã được cập nhật!");
-        localStorage.setItem("user", JSON.stringify(updatedUserData));
-        dispatch(loginSuccess(JSON.stringify(updatedUserData)));
+        if (response.data.message === "success") {
+          var updatedUserData = cloneDeep(user);
+          updatedUserData["payload"]["name"] = name;
+          updatedUserData["payload"]["email"] = email;
+          updatedUserData["payload"]["phone"] = phone;
+          updatedUserData["payload"]["gender"] = gender;
+          updatedUserData["payload"]["avatar"] = avatar;
+          updatedUserData["payload"]["dob"] = { day, month, year };
+          dispatch(loginSuccess(updatedUserData));
+        }
       })
       .catch((error) => {
         console.error("Lỗi khi cập nhật thông tin:", error);
@@ -120,9 +121,6 @@ function MyAccount() {
             {email || "Addison"}
           </p>
           <br />
-          <label style={{ marginRight: "10px" }}>Password:</label>
-          <p style={{ display: "inline-block" }}>{password || "Addison"}</p>
-          <br />
           <label style={{ marginRight: "10px" }}>Phone:</label>
           <input
             className="form-control"
@@ -147,7 +145,10 @@ function MyAccount() {
                 type="radio"
                 name="gender"
                 value="male"
-                checked={gender === "male"}
+                checked={
+                  gender === "male" ||
+                  (user.payload && user.payload.gender === "male")
+                }
                 onChange={(e) => setGender(e.target.value)}
               />
               Male
@@ -157,7 +158,10 @@ function MyAccount() {
                 type="radio"
                 name="gender"
                 value="female"
-                checked={gender === "female"}
+                checked={
+                  gender === "female" ||
+                  (user.payload && user.payload.gender === "female")
+                }
                 onChange={(e) => setGender(e.target.value)}
               />
               Female
@@ -167,7 +171,10 @@ function MyAccount() {
                 type="radio"
                 name="gender"
                 value="other"
-                checked={gender === "other"}
+                checked={
+                  gender === "other" ||
+                  (user.payload && user.payload.gender === "other")
+                }
                 onChange={(e) => setGender(e.target.value)}
               />
               Other

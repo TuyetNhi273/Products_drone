@@ -1,7 +1,13 @@
 .products-layout {
   display: flex;
 }
-
+.my-account-container {
+  width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  font-size: 16px;
+  background-color: rgb(160, 197, 226);
+}
 /* style cho phần thông tin người dùng trong sidebar */
 .user-info {
   display: flex;

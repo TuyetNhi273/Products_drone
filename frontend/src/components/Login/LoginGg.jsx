@@ -15,16 +15,12 @@ const LoginGg = () => {
   };
 
   const handleLoginSuccess = (credentialResponse) => {
-    dispatch(loginSuccess());
     const decoded = jwtDecode(credentialResponse?.credential);
     console.log(decoded); // Hiển thị JWT đã giải mã
 
-    // Lưu thông tin đăng nhập vào localStorage
-    localStorage.setItem("user", JSON.stringify(decoded));
+    navigate("/");
 
-    localStorage.setItem("previousPage", window.location.pathname); // Lưu trang hiện tại
-
-    navigate("/products/home");
+    dispatch(loginSuccess(decoded));
   };
 
   const handleLoginError = () => {

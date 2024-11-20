@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginStart, loginFalse, loginSuccess } from "../../redux/authSlice";
 
-const Login = (props) => {
+import axiosInstance from "../../services/Axios";
+
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -70,14 +72,9 @@ const Login = (props) => {
 
   // Call the server API to check if the given email ID already exists
   const checkAccountExists = (callback) => {
-    fetch("http://localhost:3080/check-account", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
-      .then((r) => r.json())
+    axiosInstance
+      .post("check-account", { email })
+      .then((r) => r.data)
       .then((r) => {
         callback(r?.userExists);
       });
@@ -85,25 +82,13 @@ const Login = (props) => {
 
   // Log in a user using email and password
   const logIn = () => {
-    fetch("http://localhost:3080/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((r) => r.json())
+    axiosInstance
+      .post("auth", { email, password })
+      .then((r) => r.data)
       .then((r) => {
         if ("success" === r.message) {
           console.log("r.payload", r.payload);
-          dispatch(
-            loginSuccess(JSON.stringify({ payload: r.payload, token: r.token }))
-          );
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ payload: r.payload, token: r.token })
-          );
-          props.setLoggedIn(true);
+          dispatch(loginSuccess({ payload: r.payload, token: r.token }));
           navigate("/");
         } else {
           dispatch(loginFalse());

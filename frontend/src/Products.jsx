@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaUser, FaBell, FaClipboardList } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import avt from "../src/assets/image/avt.png";
 import "./Products.css";
 import Header from "./components/Products/Header";
 
-function Products() {
+function Products({ children }) {
+  const tts_user = useSelector((state) => state.auth.login.currentUser);
   const [user, setUser] = useState({
-    name: "Ẩn Danh",
-    avatar: avt,
+    name: tts_user?.payload?.name || "Ẩn Danh",
+    avatar: tts_user?.payload?.avatar || avt,
   });
   const [isPurchaseOrderOpen, setIsPurchaseOrderOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"))?.payload || {};
-    if (userData) {
+    if (tts_user !== null) {
       setUser({
-        name: userData.name || "Ẩn Danh",
-        avatar: userData.avatar || avt,
+        name: tts_user?.payload?.name || "Ẩn Danh",
+        avatar: tts_user?.payload?.avatar || avt,
       });
     }
-  }, []);
+  }, [tts_user]);
 
   useEffect(() => {
     if (!location.pathname.startsWith("/products/purchase-order")) {
@@ -101,9 +102,7 @@ function Products() {
         </nav>
       </aside>
 
-      <main className="content">
-        <Outlet />
-      </main>
+      <main className="content">{children}</main>
     </div>
   );
 }

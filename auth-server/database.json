@@ -3,14 +3,14 @@
     {
       "email": "n@gmail.com",
       "password": "$2b$10$jBGBV0uImU0I1DZg1P5fXewYBV.k620xcQJ6h0E.txBj8qK7ibeO6",
-      "phone": "10",
-      "name": "n",
-      "gender": "",
+      "phone": "11",
+      "name": "nhi ",
+      "gender": "female",
       "avatar": null,
       "dob": {
-        "day": "",
-        "month": "",
-        "year": ""
+        "day": "19",
+        "month": "2",
+        "year": "2003"
       }
     }
   ]
