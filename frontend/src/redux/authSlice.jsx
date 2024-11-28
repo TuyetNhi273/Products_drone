@@ -13,8 +13,8 @@ const authSlice = createSlice({
       isfetching: false,
       error: false,
     },
-    seller: {
-      success: false,
+    RFseller: {
+      success: null,
       isfetching: false,
       error: false,
     },
@@ -45,18 +45,17 @@ const authSlice = createSlice({
       state.register.error = true;
       state.register.success = false;
     },
-    sellerStart: (state) => {
-      state.seller.isfetching = true;
+    RFsellerStart: (state) => {
+      state.RFseller.isfetching = true;
     },
-    sellerSuccess: (state) => {
-      state.seller.isfetching = false;
-      state.seller.success = true;
-      state.seller.error = false;
+    RFsellerSuccess: (state, action) => {
+      state.RFseller.isfetching = false;
+      state.RFseller.success = action.payload;
+      state.RFseller.error = false;
     },
-    sellerFalse: (state) => {
-      state.seller.isfetching = false;
-      state.seller.error = true;
-      state.seller.success = false;
+    RFsellerFalse: (state) => {
+      state.RFseller.isfetching = false;
+      state.RFseller.error = true;
     },
   },
 });
@@ -68,9 +67,9 @@ export const {
   registerStart,
   registerFalse,
   registerSuccess,
-  sellerStart,
-  sellerFalse,
-  sellerSuccess,
+  RFsellerStart,
+  RFsellerFalse,
+  RFsellerSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -32,11 +32,9 @@ function Products({ children }) {
 
   return (
     <div className="products-layout">
-      
-
       <aside className="sidebar">
         <br />
-        <div style={{ borderBottom: "1px solid #E6E6FA"}}>
+        <div style={{ borderBottom: "1px solid #E6E6FA" }}>
           <div className="user-info">
             <img src={user.avatar} alt="Avatar" className="user-avatar" />
             <div>
@@ -89,7 +87,7 @@ function Products({ children }) {
                     </Link>
                   </li>
                   <li className="mini">
-                    <Link to="/products/purchase-order/seller">
+                    <Link to="/products/purchase-order/seller/RFseller">
                       Seller
                     </Link>
                   </li>
@@ -100,7 +98,7 @@ function Products({ children }) {
         </nav>
       </aside>
 
-      <main className="content" style={{position: "relative"}}>
+      <main className="content" style={{ position: "relative" }}>
         <Header />
         {children}
       </main>
@@ -109,4 +107,3 @@ function Products({ children }) {
 }
 
 export default Products;
-

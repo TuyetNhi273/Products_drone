@@ -18,8 +18,8 @@ const MapSearchPopUp = ({ show, onClose, callback_marker }) => {
   return (
     <div className="overlay">
       <div className="MapSearchPopUp">
-        <button onClick={onClose}>Close</button>
         <MapSearch callback_marker={handleMarkerUpdate} />
+        <button onClick={onClose}>SAVE</button>
       </div>
     </div>
   );

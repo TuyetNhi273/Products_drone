@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Thêm useNavigate từ react-router-dom
 import "./RFSeller.css";
 import { useDispatch } from "react-redux";
 import {
-  sellerStart,
-  sellerFalse,
-  sellerSuccess,
+  RFsellerStart,
+  RFsellerFalse,
+  RFsellerSuccess,
 } from "../../../redux/authSlice";
-
+import { useSelector } from "react-redux";
 import MapSearchPopUp from "../../MapApi/MapSearchPopUp";
-function Seller() {
+
+function RFSeller() {
   const [shopName, setShopName] = useState("");
   const [shopNameError, setShopNameError] = useState("");
   const [pickupAddresses, setPickupAddresses] = useState([]);
@@ -23,14 +24,33 @@ function Seller() {
   const [currentStep, setCurrentStep] = useState(1);
   const [saved, setSaved] = useState(false);
 
+  const [initSaved, setInitSaved] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Khai báo navigate
 
   const [showPopup, setShowPopup] = useState(false);
 
+  const RFseller = useSelector((state) => state.auth.RFseller);
+
+  useEffect(() => {
+    if (RFseller.success) {
+      setShopName(RFseller.success.payload.shopName);
+      setEmail(RFseller.success.payload.email);
+      setPhoneNumber(RFseller.success.payload.phoneNumber);
+      setPickupAddresses(RFseller.success.payload.pickupAddresses);
+      setTax(RFseller.success.payload.tax);
+      setID(RFseller.success.payload.ID);
+      console.log(RFseller.success.payload.initSaved);
+      if (RFseller.success.payload.initSaved) {
+        navigate("/products/purchase-order/seller/seller");
+      }
+    }
+  }, [RFseller, navigate]);
+
   const handleMarkerUpdate = (marker) => {
     console.log("Updated Marker:", marker);
-    // setPickupAddresses([...pickupAddresses, marker]);
+    setPickupAddresses(marker);
   };
 
   const handleAddPickupAddress = () => {
@@ -42,19 +62,19 @@ function Seller() {
   };
 
   const onButtonClick = () => {
-    dispatch(sellerStart());
+    dispatch(RFsellerStart());
     setEmailError("");
     setShopNameError("");
     setPhoneNumberError("");
 
     if ("" === shopName) {
-      dispatch(sellerFalse());
+      dispatch(RFsellerFalse());
       setShopNameError("Please enter your shop name");
       return;
     }
 
     if ("" === email) {
-      dispatch(sellerFalse());
+      dispatch(RFsellerFalse());
       setEmailError("Please enter your email");
       return;
     }
@@ -64,22 +84,36 @@ function Seller() {
         email
       )
     ) {
-      dispatch(sellerFalse());
+      dispatch(RFsellerFalse());
       setEmailError("Please enter a valid email");
       return;
     }
 
     if ("" === phoneNumber) {
-      dispatch(sellerFalse());
+      dispatch(RFsellerFalse());
       setPhoneNumberError("Please enter your PhoneNumber");
       return;
     }
 
     if (phoneNumber.length > 10) {
-      dispatch(sellerFalse());
+      dispatch(RFsellerFalse());
       setPhoneNumberError("The PhoneNumber must be 10 characters");
       return;
     }
+
+    dispatch(
+      RFsellerSuccess({
+        payload: {
+          shopName,
+          email,
+          phoneNumber,
+          pickupAddresses,
+          tax,
+          ID,
+          initSaved,
+        },
+      })
+    );
 
     // Set saved flag to true after successfully saving
     setSaved(true);
@@ -94,11 +128,27 @@ function Seller() {
     }
 
     if (currentStep < 4) {
-      dispatch(sellerSuccess());
+      console.log("currentStep", currentStep);
+
       setCurrentStep(currentStep + 1); // Move to the next step
       setSaved(false);
     } else {
       // Khi đến bước cuối, điều hướng tới trang sản phẩm
+      setInitSaved(true);
+      dispatch(
+        RFsellerSuccess({
+          payload: {
+            shopName,
+            email,
+            phoneNumber,
+            pickupAddresses,
+            tax,
+            ID,
+            initSaved: true,
+          },
+        })
+      );
+      console.log("initSaved", initSaved);
       navigate("/products/purchase-order/seller/seller");
     }
   };
@@ -141,7 +191,9 @@ function Seller() {
                 placeholder="Enter your shop name"
               />
               <p className="errorShopName">{shopNameError}</p>
-              <span className="character-count">{shopName.length}/30</span>
+              <span className="character-count">
+                {shopName ? shopName.length : 0}/30
+              </span>
             </div>
 
             <div className="form-group">
@@ -161,7 +213,7 @@ function Seller() {
               <input
                 type="number"
                 id="phone-number"
-                value={phoneNumber}
+                value={phoneNumber || ""}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="Enter your phone number"
               />
@@ -177,11 +229,17 @@ function Seller() {
                 + Add
               </button>
 
-              {/* <ul className="address-list">
-                {pickupAddresses.map((address, index) => (
-                  <li key={index}>{address}</li>
-                ))}
-              </ul> */}
+              <div className="address-list">
+                <div>
+                  lat: {pickupAddresses?.lat}, lng: {pickupAddresses?.lng}
+                </div>
+                {pickupAddresses?.address && (
+                  <div>
+                    Address: {pickupAddresses?.address.slice(0, 40)}
+                    {pickupAddresses?.address.length > 40 ? "..." : ""}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -262,4 +320,4 @@ function Seller() {
   );
 }
 
-export default Seller;
+export default RFSeller;
