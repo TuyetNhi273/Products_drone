@@ -7,7 +7,7 @@
 
 .logout-container button,
 .logout-container input[type="button"] {
-  padding: 5px 10px;
+  padding: 0.2rem !important;
   font-size: 16px;
   background-color: #4f9ad3;
   color: white;

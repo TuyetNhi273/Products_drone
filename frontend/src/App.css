@@ -1,34 +1,140 @@
 .mainContainer {
-  display: flex;
+  display: flex !important;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  max-width: 1000px;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100vh    !important;
   margin: auto;
 }
 
-.login-left {
+.login-right {
   width: max-content;
   background-color: #fff;
   justify-content: center;
   align-items: center;
-  border: #fff;
-  padding: 24px;
-  margin: 14px;
+  padding: 24px !important;
+  margin: 14px !important;
   border: gray 1px solid;
 }
 
-.login-right img {
-  width: 550px; /* hoặc đặt giá trị mong muốn */
-  height: auto; /* Giữ tỷ lệ ảnh */
-  margin-right: 5rem;
+.login-left img {
+  width: 550px; 
+  height: auto; 
+  margin-right: 2rem !important;
+}
+.style-login-gg {
+  display: flex;
+  justify-content: center ;
+  align-items: center;
+  border-radius: 30px !important;
+}
+.style-login-gg > div {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  height: 48px;
 }
 
+@media (min-width: 577px) {
+  .dashed-line {
+    position: relative;
+    display: inline-block;
+    padding: 0 178px !important;
+    margin-left: 1rem !important;
+    margin-top: 1rem !important;
+  }
+}
+
+/* Bố cục cho màn hình nhỏ hơn 768px (tablet) */
+@media (max-width: 1136px) {
+  .mainContainer {
+    display: flex !important;
+    flex-direction: column; 
+    align-items: center !important;
+    justify-content: center !important; height: auto !important;
+  }
+
+  .login-left img {
+    width: 50%;
+    margin-bottom: -4rem !important;
+    margin-left: 12rem !important;
+    margin-top: 2rem !important;
+    
+  }
+
+  .login-right {
+    width: 435px;
+    height: auto;
+    padding: 16px !important;
+    margin-bottom: 5rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+}
+
+/* Bố cục cho màn hình nhỏ hơn 576px (điện thoại) */
+@media (max-width: 576px) {
+  .mainContainer {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .login-left img {
+    width: 50%; 
+    margin-bottom: 0rem !important; 
+    margin-left: 6rem ! important;
+  }
+
+  .login-right {
+    width: 290px; 
+    padding: 0.2rem !important; 
+  }
+
+  .style_bottom {
+    margin-bottom: 1rem !important;
+  }
+
+  .titleContainer {
+    font-size: 1.5rem !important; 
+    margin-top: 2rem !important; 
+  }
+
+  .dashed-line {
+    padding: 0 10px !important; 
+  }
+
+  .inputBox{
+    width: 260px !important;
+  }
+  .inputButton {
+    width: 260px !important;
+  }
+
+  .dashed-line {
+  position: relative;
+  display: inline-block;
+  padding: 0 119px ! important;
+  margin-left: 0.8rem !important;
+  margin-top: 1rem !important;
+  }
+}
+
+
+.style_bottom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem !important;
+}
 .titleContainer {
   display: flex;
-  margin-bottom: 1rem;
-  margin-top: 4rem;
+  margin-bottom: 1rem !important;
+  margin-top: 4rem !important;
   flex-direction: column;
   font-size: 2.2rem;
   font-weight: bolder;
@@ -65,6 +171,7 @@
 .inputContainer {
   display: flex;
   flex-direction: column;
+  margin-left: 0.5rem !important;
 }
 
 .inputContainer > .errorLabel {
@@ -78,8 +185,9 @@
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid rgb(255, 255, 255);
-  padding-left: 8px;
+  padding-left: 0.5rem !important;
   border-bottom: 1px solid rgb(165, 165, 165);
+  margin-top: 1rem !important;
 }
 
 .inputButton {
@@ -92,6 +200,8 @@
   border-bottom: 1px solid rgb(165, 165, 165);
   background-color: #007bff;
   color: white;
+  margin-bottom: 1rem !important;
+  margin-top: 1rem !important;
 }
 
 .inputButton:hover {
@@ -132,12 +242,7 @@
 .login-center-buttons button:nth-child(2):hover {
   background-color: #c4c4c457;
 }
-.dashed-line {
-  position: relative;
-  display: inline-block;
-  padding: 0 178px;
-  margin-left: 1rem;
-}
+
 
 .dashed-line::before,
 .dashed-line::after {
@@ -162,10 +267,25 @@
 
 .register-input {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+  padding: 10px !important;
+  margin-top: 1rem !important;
   border-radius: 5px;
   border-top: rgb(165, 165, 165);
   border-left: rgb(165, 165, 165);
   border-right: rgb(165, 165, 165);
+  border-bottom: 1px solid rgb(165, 165, 165);
+}
+
+.tk{
+  margin-top: 1.5rem !important;
+  margin-bottom: 2rem !important;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+}
+
+.margin{
+  margin-top: 1.5rem !important;
+  margin-bottom: 2rem !important;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
 }

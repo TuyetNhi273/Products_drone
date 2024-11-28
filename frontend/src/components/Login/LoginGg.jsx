@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { loginStart, loginFalse, loginSuccess } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
-import "./style.css";
+import "../../App.css";
 
 const LoginGg = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [type, setType] = useState(window.innerWidth < 576 ? "icon" : "standard");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 576) {
+        setType("icon");
+      } else {
+        setType("standard");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleLoginStart = () => {
     dispatch(loginStart());
@@ -36,7 +50,7 @@ const LoginGg = () => {
         width={"384px"}
         shape="circle"
         size="large"
-        type="standard"
+        type={type}
         logo_alignment="center"
         locale="en"
         click_listener={handleLoginStart}
@@ -46,3 +60,5 @@ const LoginGg = () => {
 };
 
 export default LoginGg;
+
+

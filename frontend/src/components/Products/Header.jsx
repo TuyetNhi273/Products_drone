@@ -27,7 +27,7 @@ function Header() {
         <input
           type="text"
           className="search-input"
-          placeholder="Tìm sản phẩm, thương hiệu, và tên shop"
+          placeholder="Search for products, brands, and shop names."
         />
         <button className="search-button">
           <img src={searchIcon} alt="Search" />

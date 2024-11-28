@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerStart, registerFalse, registerSuccess } from "../../redux/authSlice";
 
 function Register() {
   const [phone, setPhone] = useState("");
@@ -7,7 +9,11 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleRegisterStart = () => {
+    dispatch(registerStart());
+  }
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -26,6 +32,7 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "success") {
+          dispatch(registerSuccess());
           // Save user data in localStorage
           const userData = { name, email, phone, password };
           localStorage.setItem("user", JSON.stringify(userData));
@@ -33,10 +40,12 @@ function Register() {
           alert("Đăng ký thành công!");
           navigate("/login"); // Điều hướng về trang đăng nhập
         } else {
+          dispatch(registerFalse());
           alert("Đăng ký thất bại. Vui lòng thử lại.");
         }
       })
       .catch((error) => {
+        dispatch(registerFalse());
         console.error("Lỗi khi đăng ký:", error);
         alert("Có lỗi xảy ra, vui lòng thử lại sau.");
       });
@@ -55,15 +64,16 @@ function Register() {
     >
       <div
         style={{
+          display: "block",
           width: "500px",
-          padding: "20px",
           backgroundColor: "#fff",
           boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.2)",
+          borderRadius: "8px",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Đăng ký</h2>
-        <form onSubmit={handleRegister}>
-          <div style={{ marginBottom: "15px" }}>
+        <h2 className="margin" style={{ textAlign: "center", marginBottom: "20px", fontSize: "24px", fontWeight: "bold"}}>Đăng ký</h2>
+        <form onSubmit={handleRegister} style={{ display: "block",}}>
+          <div className="tk">
             <label>Tên tài khoản</label>
             <input
               className="register-input"
@@ -71,9 +81,10 @@ function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              click_listener={handleRegisterStart}
             />
           </div>
-          <div style={{ marginBottom: "15px" }}>
+          <div className="tk">
             <label>Địa chỉ email</label>
             <input
               className="register-input"
@@ -82,9 +93,10 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="username"
+              click_listener={handleRegisterStart}
             />
           </div>
-          <div style={{ marginBottom: "15px" }}>
+          <div className="tk">
             <label>Mật khẩu</label>
             <input
               className="register-input"
@@ -93,9 +105,10 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
+              click_listener={handleRegisterStart}
             />
           </div>
-          <div style={{ marginBottom: "15px" }}>
+          <div className="tk">
             <label>Số điện thoại</label>
             <input
               className="register-input"
@@ -103,20 +116,19 @@ function Register() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               required
+              click_listener={handleRegisterStart}
             />
           </div>
 
-          <div style={{ textAlign: "center" }}>
+          <div className="margin" style={{ textAlign: "center" }}>
             <button
               type="submit"
               style={{
                 width: "100px",
-                padding: "10px",
+                height: "2rem",
                 backgroundColor: "#007bff",
                 color: "#fff",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
+                borderRadius: "8px",
               }}
             >
               Đăng ký
@@ -129,3 +141,4 @@ function Register() {
 }
 
 export default Register;
+

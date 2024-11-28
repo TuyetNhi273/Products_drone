@@ -1,0 +1,76 @@
+
+.HomePage,
+.HomePage * {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.HomePage {
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem !important;
+  color: #222;
+  font: normal normal normal 1rem/1.6 Nunito Sans, Helvetica, Arial, sans-serif;
+}
+.HomePage {
+  text-align: center;
+}
+
+/* Slideshow styling (if needed) */
+.Slideshow {
+  margin-bottom: 2rem !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.lead{
+  display: flex;
+  direction: row;
+}
+
+.image{
+  width: 15rem;
+}
+
+.icon-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px; /* Chiều rộng của mỗi mục */
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Tạo khung tròn */
+  background-color: #f0f0f0; /* Màu nền của vòng tròn */
+  margin-bottom: 10px !important;
+  overflow: hidden; /* Cắt hình ảnh thừa ngoài khung */
+}
+
+.icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+}
+
+.icon-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333; /* Màu chữ */
+  text-align: center;
+}

@@ -13,6 +13,11 @@ const authSlice = createSlice({
       isfetching: false,
       error: false,
     },
+    seller: {
+      success: false,
+      isfetching: false,
+      error: false,
+    },
   },
   reducers: {
     loginStart: (state) => {
@@ -40,6 +45,19 @@ const authSlice = createSlice({
       state.register.error = true;
       state.register.success = false;
     },
+    sellerStart: (state) => {
+      state.seller.isfetching = true;
+    },
+    sellerSuccess: (state) => {
+      state.seller.isfetching = false;
+      state.seller.success = true;
+      state.seller.error = false;
+    },
+    sellerFalse: (state) => {
+      state.seller.isfetching = false;
+      state.seller.error = true;
+      state.seller.success = false;
+    },
   },
 });
 
@@ -50,6 +68,9 @@ export const {
   registerStart,
   registerFalse,
   registerSuccess,
+  sellerStart,
+  sellerFalse,
+  sellerSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

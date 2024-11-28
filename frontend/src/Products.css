@@ -1,18 +1,30 @@
 .products-layout {
   display: flex;
+  height: 100%;
+  font-size: 1.1rem;
 }
-.my-account-container {
-  width: 800px;
-  margin: 0 auto;
-  padding: 40px;
-  font-size: 16px;
-  background-color: rgb(160, 197, 226);
+
+.st{
+  margin-top: 1.5rem !important;
+  margin-bottom: -1rem !important;
+}
+
+.po{
+  margin-left: 0.6rem !important;
+  margin-top: -0.2rem !important;
+}
+
+.mini{
+  margin-left: 3rem !important;
+  padding: 0.2rem !important;
 }
 /* style cho phần thông tin người dùng trong sidebar */
 .user-info {
   display: flex;
   align-items: center;
-  margin: 15px 0;
+  justify-content: center;
+  margin: 1rem 0 !important;
+  margin-top: 2rem !important;
 }
 .user-sell {
   display: flex;
@@ -21,7 +33,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 
 .user-name {
@@ -30,11 +42,22 @@
 
 .sidebar {
   width: 300px;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   padding: 60px;
   margin-top: -60px;
   background-color: #a0c5e2;
   box-shadow: 2px 2px 2px rgba(130, 150, 247, 0.526);
+}
+
+.sidebar div{
+  padding: 4px 0 !important;
+}
+
+.sidebar nav{
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .content {
@@ -98,7 +121,7 @@
 }
 
 .sub-menu li a {
-  font-size: 14px;
+  font-size: 1rem;
   color: #fff;
   text-decoration: none;
 }

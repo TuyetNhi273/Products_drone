@@ -32,19 +32,17 @@ function Products({ children }) {
 
   return (
     <div className="products-layout">
-      <header>
-        <Header />
-      </header>
+      
 
       <aside className="sidebar">
         <br />
-        <div style={{ borderBottom: "1px solid #E6E6FA", marginTop: "-2rem" }}>
+        <div style={{ borderBottom: "1px solid #E6E6FA"}}>
           <div className="user-info">
             <img src={user.avatar} alt="Avatar" className="user-avatar" />
             <div>
               <p className="user-name">{user.name}</p>
 
-              <Link to="/products/seller" className="user-sell">
+              <Link to="/products/purchase-order/seller" className="user-sell">
                 Regist for seller
               </Link>
             </div>
@@ -53,46 +51,46 @@ function Products({ children }) {
 
         <nav>
           <ul>
-            <li>
+            <li className="st">
               <Link to="/products/home">
                 <FaHome /> HomePage
               </Link>
             </li>
-            <li>
+            <li className="st">
               <Link to="/products/my-account">
                 <FaUser /> My Account
               </Link>
             </li>
-            <li>
+            <li className="st">
               <Link to="/products/notifications">
                 <FaBell /> Notifications
               </Link>
             </li>
-            <li>
+            <li className="st">
               <div
                 onClick={() =>
                   setIsPurchaseOrderOpen((prevState) => !prevState)
                 }
-                style={{
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                }}
               >
                 <FaClipboardList />
-                <span style={{ marginLeft: "10px" }}>Purchase Order</span>
+                <span className="po">Purchase Order</span>
               </div>
               {isPurchaseOrderOpen && (
                 <ul className="sub-menu">
-                  <li>
+                  <li className="mini">
                     <Link to="/products/purchase-order/cart">Cart</Link>
                   </li>
-                  <li>
+                  <li className="mini">
                     <Link to="/products/purchase-order/payment">Payment</Link>
                   </li>
-                  <li>
+                  <li className="mini">
                     <Link to="/products/purchase-order/tracking">
                       Order Tracking
+                    </Link>
+                  </li>
+                  <li className="mini">
+                    <Link to="/products/purchase-order/seller">
+                      Seller
                     </Link>
                   </li>
                 </ul>
@@ -102,9 +100,13 @@ function Products({ children }) {
         </nav>
       </aside>
 
-      <main className="content">{children}</main>
+      <main className="content" style={{position: "relative"}}>
+        <Header />
+        {children}
+      </main>
     </div>
   );
 }
 
 export default Products;
+

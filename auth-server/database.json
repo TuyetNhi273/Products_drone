@@ -2,15 +2,28 @@
   "users": [
     {
       "email": "n@gmail.com",
-      "password": "$2b$10$jBGBV0uImU0I1DZg1P5fXewYBV.k620xcQJ6h0E.txBj8qK7ibeO6",
-      "phone": "11",
-      "name": "nhi ",
+      "password": "$2b$10$rnBfuPrxF1uiR.c24xl8ROwlMU0IHWETugKeEdMdFb50LTeL3KkcG",
+      "phone": "00524245252",
+      "name": "nvwrzg",
       "gender": "female",
-      "avatar": null,
+      "avatar": "http://localhost:3080/uploads/avatars/1732164752044.jpg",
       "dob": {
-        "day": "19",
-        "month": "2",
-        "year": "2003"
+        "day": "18",
+        "month": "10",
+        "year": "2009"
+      }
+    },
+    {
+      "email": "k@gmail.com",
+      "password": "$2b$10$Msqx5x2YmagWAFpNCP4DH.xY68ZrYJqbQZSv/Z3oR.bQS.zJLHlFm",
+      "phone": "0000",
+      "name": "k",
+      "gender": "female",
+      "avatar": "http://localhost:3080/uploads/avatars/1732164733766.jpg",
+      "dob": {
+        "day": "18",
+        "month": "11",
+        "year": "2009"
       }
     }
   ]

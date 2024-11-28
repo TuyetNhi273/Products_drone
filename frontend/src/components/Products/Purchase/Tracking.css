@@ -1,20 +1,20 @@
 /* Toàn bộ container */
 .tracking-container {
   font-family: Arial, sans-serif;
-  margin: 20px 0; /* Chỉnh khoảng cách từ các phần khác */
+  margin: 1.8rem 0 !important; 
 }
 
 /* Thanh Tabs */
 .tabs {
   display: flex;
   border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
   position: relative;
   top: -320px;
 }
 
 .tab {
-  padding: 10px 20px;
+  padding: 0.8rem 1.5rem !important;
   cursor: pointer;
   color: #333;
   border-bottom: 2px solid transparent;
@@ -28,31 +28,32 @@
 
 .tab-count {
   color: #3716ae;
-  margin-left: 5px;
+  margin-left: 0.2rem !important;
   font-weight: bold;
 }
 
 .search-bar {
-  margin: 10px 0;
+  margin: 0.8rem 0 !important;
   position: relative;
   top: -320px;
 }
 
 .search-bar input {
   width: 100%;
-  padding: 10px;
-  font-size: 14px;
+  padding: 0.5rem !important;
+  font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.content {
-  margin-top: 20px;
+.content1 {
+  margin-top: 2rem !important;
 }
 
-.content h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+.content1 h3 {
+  margin: 0 0 10px 0 !important;
+  font-size: 1.2rem;
+  font-weight: bold;
   color: #333;
   position: relative;
   top: -320px;

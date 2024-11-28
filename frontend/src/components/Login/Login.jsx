@@ -100,7 +100,7 @@ const Login = () => {
   return (
     <div className="d-flex flex-column align-items-center justify-content-center vh-100">
       <div className="d-flex flex-column align-items-center justify-content-center fw-bolder display-1">
-        <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+        <div style={{ textAlign: "center"}}>
           Please enter your details
         </div>
       </div>
@@ -108,6 +108,8 @@ const Login = () => {
       <div className={"inputContainer "}>
         <input
           value={email}
+          type="email"
+          id="email"
           placeholder="Enter your email here"
           onChange={(ev) => setEmail(ev.target.value)}
           className={"inputBox"}
@@ -118,6 +120,7 @@ const Login = () => {
       <div className={"inputContainer"}>
         <input
           value={password}
+          type="password"
           placeholder="Enter your password here"
           onChange={(ev) => setPassword(ev.target.value)}
           className={"inputBox"}
@@ -138,8 +141,6 @@ const Login = () => {
             display: "inline",
             color: "blue",
             textAlign: "end",
-            marginTop: "0.5rem",
-            marginBottom: "0.5rem",
           }}
         >
           Forgot password?

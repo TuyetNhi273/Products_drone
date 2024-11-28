@@ -1,0 +1,117 @@
+.my-account-container {
+  width: auto;
+  margin: 0 auto !important;
+  padding: 2rem !important;
+  font-size: 1rem;
+  background-color: aliceblue;
+}
+
+.text1{
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem !important;
+  margin-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1.8rem !important;
+  gap: 8rem;
+}
+
+
+.form-section {
+  flex: 1;
+  min-width: none;
+}
+
+.text2{
+  margin-right: 1rem !important;
+}
+
+.text3{
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  margin-left: 1rem !important;
+  margin-right: 0.2rem !important;
+}
+
+.form-control {
+  border-radius: 5px;
+  margin-bottom: 1.2rem !important;
+  border-top: rgb(165, 165, 165) !important;
+  border-left: rgb(165, 165, 165)  !important;
+  border-right: rgb(165, 165, 165)  !important;
+  border-bottom: 1px solid rgb(165, 165, 165)  !important;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+.avatar-section p {
+  font-size: 14px;
+  color: #007bff; /* Màu xanh hiển thị trạng thái */
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.birthdate-select {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem !important;
+  margin-top: 1rem !important;
+}
+
+.birthdate-select select {
+  padding: 0.4rem !important;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.birthdate-select select:focus {
+  border-color: #ff5722;
+  outline: none;
+}
+
+.upload-button {
+  display: inline-block;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 1rem !important;
+}
+
+.upload-button input {
+  display: none;
+}
+
+.save-button {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem !important;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 1rem !important;
+}
+
+.save-button:hover {
+  background-color: #e64a19;
+}

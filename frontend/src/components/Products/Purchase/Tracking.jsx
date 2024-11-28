@@ -40,7 +40,7 @@ function Tracking() {
       </div>
 
       {/* Nội dung bên dưới */}
-      <div className="content">
+      <div className="content1">
         <h3>{tabs.find((tab) => tab.id === activeTab)?.label}</h3>
         <p style={{ position: "relative", top: "-320px" }}>
           Hiển thị nội dung{" "}

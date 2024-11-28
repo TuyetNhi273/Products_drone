@@ -12,11 +12,32 @@ const app = express();
 
 // Define a JWT secret key. This should be isolated by using env variables for security
 const jwtSecretKey = "start";
+
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
+// Đảm bảo thư mục tồn tại
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      const uploadPath = "uploads/avatars";
+      if (!fs.existsSync(uploadPath)) {
+          fs.mkdirSync(uploadPath, { recursive: true });
+      }
+      cb(null, uploadPath); // Đường dẫn lưu ảnh
+  },
+  filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Tên file duy nhất
+  },
+});
+const upload = multer({ storage });
+
 console.log(jwtSecretKey);
 // Set up CORS and JSON middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Basic home route for the API
 app.get("/", (_req, res) => {
@@ -86,6 +107,9 @@ app.post("/auth", (req, res) => {
           email: user[0].email,
           name: user[0].name,
           phone: user[0].phone,
+          gender: user[0]?.gender,
+          dob: user[0]?.dob,
+          avatar: user[0]?.avatar
         };
 
         res.status(200).json({ message: "success", token, payload });
@@ -178,6 +202,24 @@ app.post("/update-account", (req, res) => {
     res.status(400).json({ message: "User does not exist" });
   }
 });
+
+app.post("/upload-avatar", upload.single("avatar"), (req, res) => {
+  console.log("Body:", req.body);
+  console.log("File:", req.file);
+  try {
+      if (!req.file) {
+          return res.status(400).json({ message: "Không có file nào được tải lên." });
+      }
+
+      // Trả về URL của file
+      const avatarUrl = `${req.protocol}://${req.get("host")}/uploads/avatars/${req.file.filename}`;
+      res.status(200).json({ avatarUrl });
+  } catch (error) {
+      console.error("Lỗi trong khi tải lên avatar:", error); // Log lỗi chi tiết
+      res.status(500).json({ message: "Lỗi khi xử lý file tải lên." });
+  }
+});
+
 
 app.post("/get-user", (req, res) => {
   const { email } = req.body;
