@@ -1,6 +1,5 @@
 import React from "react";
 import "./HomePage.css";
-
 import Slideshow from "../SliderImg/Slideshow";
 
 import img1 from "../../../assets/image/img1.jpg";
@@ -10,7 +9,7 @@ import img4 from "../../../assets/image/img4.jpg";
 import img5 from "../../../assets/image/img5.jpg";
 import img6 from "../../../assets/image/img6.jpg";
 
-import icon from "../../../assets/image/all.jpg"
+import icon from "../../../assets/image/all.jpg";
 import icon1 from "../../../assets/image/clothes.jpg";
 import icon2 from "../../../assets/image/food.jpg";
 import icon3 from "../../../assets/image/beverage.jpg";
@@ -28,7 +27,7 @@ const collection = [
 ];
 
 const icons = [
-  {icon: icon, text: "All"},
+  { icon: icon, text: "All" },
   { icon: icon1, text: "Clothes" },
   { icon: icon2, text: "Food" },
   { icon: icon3, text: "Beverage" },
@@ -40,7 +39,7 @@ function HomePage() {
     <div className="HomePage">
       <div className="lead">
         <Slideshow input={collection} ratio={`5:2`} mode={`automatic`} />
-        <img className="image" src={delivery} alt="delivery"/>
+        <img className="image" src={delivery} alt="delivery" />
       </div>
       <div className="icon-section">
         {icons.map((item, index) => (
@@ -52,7 +51,6 @@ function HomePage() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

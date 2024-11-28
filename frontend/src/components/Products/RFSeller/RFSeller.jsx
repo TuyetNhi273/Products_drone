@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Thêm useNavigate từ react-router-dom
 import "./RFSeller.css";
 import { useDispatch } from "react-redux";
-import { sellerStart, sellerFalse, sellerSuccess } from "../../../redux/authSlice";
+import {
+  sellerStart,
+  sellerFalse,
+  sellerSuccess,
+} from "../../../redux/authSlice";
 
+import MapSearchPopUp from "../../MapApi/MapSearchPopUp";
 function Seller() {
   const [shopName, setShopName] = useState("");
   const [shopNameError, setShopNameError] = useState("");
@@ -15,17 +20,25 @@ function Seller() {
   const [agree, setAgree] = useState(false);
   const [tax, setTax] = useState([""]);
   const [ID, setID] = useState([""]);
-  const [currentStep, setCurrentStep] = useState(1); 
-  const [saved, setSaved] = useState(false);  
+  const [currentStep, setCurrentStep] = useState(1);
+  const [saved, setSaved] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Khai báo navigate
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleMarkerUpdate = (marker) => {
+    console.log("Updated Marker:", marker);
+    // setPickupAddresses([...pickupAddresses, marker]);
+  };
+
   const handleAddPickupAddress = () => {
-    const newAddress = prompt("Enter pickup address:");
-    if (newAddress) {
-      setPickupAddresses([...pickupAddresses, newAddress]);
-    }
+    togglePopup();
+  };
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
   };
 
   const onButtonClick = () => {
@@ -33,20 +46,24 @@ function Seller() {
     setEmailError("");
     setShopNameError("");
     setPhoneNumberError("");
-    
+
     if ("" === shopName) {
       dispatch(sellerFalse());
       setShopNameError("Please enter your shop name");
       return;
     }
-    
+
     if ("" === email) {
       dispatch(sellerFalse());
       setEmailError("Please enter your email");
       return;
     }
 
-    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email
+      )
+    ) {
       dispatch(sellerFalse());
       setEmailError("Please enter a valid email");
       return;
@@ -70,10 +87,12 @@ function Seller() {
 
   const handleNext = () => {
     if (!saved) {
-      alert("You need to save the data first before proceeding to the next step!");
+      alert(
+        "You need to save the data first before proceeding to the next step!"
+      );
       return; // Prevent progressing if data is not saved
     }
-    
+
     if (currentStep < 4) {
       dispatch(sellerSuccess());
       setCurrentStep(currentStep + 1); // Move to the next step
@@ -93,10 +112,18 @@ function Seller() {
   return (
     <div className="seller-container">
       <div className="progress-bar">
-        <div className={`progress-step ${currentStep === 1 ? 'active' : ''}`}>Shop Information</div>
-        <div className={`progress-step ${currentStep === 2 ? 'active' : ''}`}>Tax Information</div>
-        <div className={`progress-step ${currentStep === 3 ? 'active' : ''}`}>Identification Information</div>
-        <div className={`progress-step ${currentStep === 4 ? 'active' : ''}`}>Complete</div>
+        <div className={`progress-step ${currentStep === 1 ? "active" : ""}`}>
+          Shop Information
+        </div>
+        <div className={`progress-step ${currentStep === 2 ? "active" : ""}`}>
+          Tax Information
+        </div>
+        <div className={`progress-step ${currentStep === 3 ? "active" : ""}`}>
+          Identification Information
+        </div>
+        <div className={`progress-step ${currentStep === 4 ? "active" : ""}`}>
+          Complete
+        </div>
       </div>
 
       <div className="for-container">
@@ -143,15 +170,18 @@ function Seller() {
 
             <div className="form-group">
               <label>* Pickup Address</label>
-              <button className="add-address-btn" onClick={handleAddPickupAddress}>
+              <button
+                className="add-address-btn"
+                onClick={handleAddPickupAddress}
+              >
                 + Add
               </button>
 
-              <ul className="address-list">
+              {/* <ul className="address-list">
                 {pickupAddresses.map((address, index) => (
                   <li key={index}>{address}</li>
                 ))}
-              </ul>
+              </ul> */}
             </div>
           </div>
         )}
@@ -159,7 +189,7 @@ function Seller() {
         {currentStep === 2 && (
           <div>
             <div className="form-group">
-              <label htmlFor="tax">*  Tax Identification Number</label>
+              <label htmlFor="tax">* Tax Identification Number</label>
               <input
                 type="text"
                 id="tax"
@@ -174,7 +204,7 @@ function Seller() {
         {currentStep === 3 && (
           <div>
             <div className="form-group">
-              <label htmlFor="ID">*   National ID Card</label>
+              <label htmlFor="ID">* National ID Card</label>
               <input
                 type="number"
                 id="ID"
@@ -188,15 +218,18 @@ function Seller() {
 
         {currentStep === 4 && (
           <div>
-            <h3>Thank you! Your information has been submitted. The policies are listed below:</h3>
+            <h3>
+              Thank you! Your information has been submitted. The policies are
+              listed below:
+            </h3>
             <div className="agreement">
-              <input 
-              className="agreement-checkbox"
-              type="checkbox"
-              name="agreement"
-              value="agreement"
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
+              <input
+                className="agreement-checkbox"
+                type="checkbox"
+                name="agreement"
+                value="agreement"
+                checked={agree}
+                onChange={(e) => setAgree(e.target.checked)}
               />
               <h3>I agree to the terms and conditions</h3>
             </div>
@@ -205,9 +238,9 @@ function Seller() {
 
         {/* Buttons */}
         <div className="form-buttons">
-          <button 
-            className="previous-btn" 
-            onClick={handlePrevious} 
+          <button
+            className="previous-btn"
+            onClick={handlePrevious}
             disabled={currentStep === 1} // Disable on the first step
           >
             Previous
@@ -220,6 +253,11 @@ function Seller() {
           </button>
         </div>
       </div>
+      <MapSearchPopUp
+        show={showPopup}
+        onClose={togglePopup}
+        callback_marker={handleMarkerUpdate}
+      />
     </div>
   );
 }

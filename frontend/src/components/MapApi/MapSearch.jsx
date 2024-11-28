@@ -90,7 +90,9 @@ function SearchControl({ setMarker, setIsSearching }) {
 
         if (results.length > 0) {
           const { x: lon, y: lat, label: address } = results[0];
-          console.log(`Address: ${address}, Latitude: ${lat}, Longitude: ${lon}`);
+          console.log(
+            `Address: ${address}, Latitude: ${lat}, Longitude: ${lon}`
+          );
 
           // Cập nhật marker và chuyển tâm bản đồ
           map.setView([lat, lon], 13);
@@ -111,7 +113,7 @@ function SearchControl({ setMarker, setIsSearching }) {
   return null;
 }
 
-const MapSearch = () => {
+const MapSearch = ({ callback_marker }) => {
   const [location, setLocation] = useState(null); // Vị trí hiện tại
   const [marker, setMarker] = useState(null); // Marker hiện tại
   const [isSearching, setIsSearching] = useState(false); // Trạng thái tìm kiếm
@@ -132,6 +134,12 @@ const MapSearch = () => {
       console.error("Geolocation is not supported by this browser.");
     }
   }, []);
+
+  useEffect(() => {
+    if (marker) {
+      callback_marker(marker);
+    }
+  }, [callback_marker, marker]);
 
   return (
     <MapContainer
@@ -172,7 +180,8 @@ const MapSearch = () => {
       {marker && (
         <Marker position={[marker.lat, marker.lng]}>
           <Popup>
-            <strong>Coordinates:</strong> Latitude {marker.lat}, Longitude {marker.lng}
+            <strong>Coordinates:</strong> Latitude {marker.lat}, Longitude{" "}
+            {marker.lng}
             <br />
             <strong>Address:</strong> {marker.address}
           </Popup>
