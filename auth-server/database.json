@@ -2,29 +2,83 @@
   "users": [
     {
       "email": "n@gmail.com",
-      "password": "$2b$10$rnBfuPrxF1uiR.c24xl8ROwlMU0IHWETugKeEdMdFb50LTeL3KkcG",
-      "phone": "00524245252",
+      "password": "$2b$10$35L/CBpJihRJbmNS6qhwTeN5ROobZ2ix7XGv2wIIWGPGYGOYcNAU.",
+      "phone": "0334423445",
       "name": "nhi",
       "gender": "female",
-      "avatar": "http://localhost:3080/uploads/avatars/1732164752044.jpg",
+      "avatar": "http://localhost:3080/uploads/avatars/1732849349344.jpg",
       "dob": {
-        "day": "18",
-        "month": "10",
-        "year": "2009"
+        "day": "27",
+        "month": "3",
+        "year": "2003"
       }
     },
     {
-      "email": "k@gmail.com",
-      "password": "$2b$10$Msqx5x2YmagWAFpNCP4DH.xY68ZrYJqbQZSv/Z3oR.bQS.zJLHlFm",
-      "phone": "0000",
-      "name": "k",
+      "email": "t@gmail.com",
+      "password": "$2b$10$AsnWtDVIs1w.Xb12VJhQZ.h5IhxmphBtsL0hTZfpN1yPJ08moCJie",
+      "phone": "0355524273",
+      "name": "t@gmail.com",
       "gender": "female",
-      "avatar": "http://localhost:3080/uploads/avatars/1732164733766.jpg",
+      "avatar": "http://localhost:3080/uploads/avatars/1732868658757.jpg",
       "dob": {
-        "day": "18",
-        "month": "11",
-        "year": "2009"
+        "day": "13",
+        "month": "6",
+        "year": "2002"
       }
+    },
+    {
+      "email": "v@gmail.com",
+      "password": "$2b$10$mAjjJj4mJnEdsuxXPMgcNeEp3UL0wkEh.SDhtMwkZWLhbelESOsUe",
+      "phone": "03",
+      "name": "v",
+      "gender": "female",
+      "avatar": "http://localhost:3080/uploads/avatars/1732873554553.jpg",
+      "dob": {
+        "day": "16",
+        "month": "8",
+        "year": "2011"
+      }
+    }
+  ],
+  "sellers": [
+    {
+      "email": "t@gmail.com",
+      "shopName": "tina",
+      "phoneNumber": "000",
+      "pickupAddresses": {
+        "lat": 10.798341081043352,
+        "lng": 106.79741173982622,
+        "address": "Phường Phú Hữu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh, 71350, Việt Nam"
+      },
+      "tax": "12431243214",
+      "ID": "0",
+      "initSaved": true
+    },
+    {
+      "email": "n@gmail.com",
+      "shopName": "tini",
+      "phoneNumber": "0355524273",
+      "pickupAddresses": {
+        "lat": 10.79202725129657,
+        "lng": 106.81371688842775,
+        "address": "Cầu Cạn, Phường Phú Hữu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh, 71350, Việt Nam"
+      },
+      "tax": "312312312",
+      "ID": "3213123",
+      "initSaved": true
+    },
+    {
+      "email": "v@gmail.com",
+      "shopName": "g nv nv",
+      "phoneNumber": "00",
+      "pickupAddresses": {
+        "lat": 10.782415458054667,
+        "lng": 106.80152893066406,
+        "address": "Phường Phú Hữu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh, 08408, Việt Nam"
+      },
+      "tax": "12431243214",
+      "ID": "21356365",
+      "initSaved": true
     }
   ]
 }

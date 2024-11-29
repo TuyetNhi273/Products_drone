@@ -220,13 +220,67 @@ app.post("/upload-avatar", upload.single("avatar"), (req, res) => {
   }
 });
 
+app.post("/update-shop", (req, res) => {
+  const { shopName, email, phoneNumber, pickupAddresses, tax, ID, initSaved } = req.body;
+  // console.log(shopName, email, phoneNumber, pickupAddresses, tax, ID, initSaved); 
+
+  // Kiểm tra xem email có tồn tại trong database không
+  const user = db.get("users").find({ email }).value();
+  // console.warn(user);
+
+
+  if (!user) {
+    return res.status(400).json({ message: "User not found" });
+  }
+
+  const seller = db.get("sellers").find({ email }).value();
+
+  if (!seller) {
+    // Initialize a new seller if not found
+    const initSeller = {
+      email,
+      shopName,
+      phoneNumber,
+      pickupAddresses,
+      tax,
+      ID,
+      initSaved,
+    };
+
+    // Save new seller to the database
+    db.get("sellers").push(initSeller).write();
+
+    // Respond with success message
+    res.status(201).json({ message: "Seller initialized successfully", seller: initSeller });
+  }
+  else{
+    const updatedSeller = {
+      ...seller,
+      shopName,
+      phoneNumber,
+      pickupAddresses,
+      tax,
+      ID,
+      initSaved
+    };
+
+    // Lưu thông tin vào cơ sở dữ liệu
+    db.get("sellers")
+      .find({ email })
+      .assign(updatedSeller)
+      .write();
+
+    res.status(200).json({ message: "Seller info updated successfully", data: updatedSeller });
+  }
+});
+
 
 app.post("/get-user", (req, res) => {
   const { email } = req.body;
 
   const user = db;
   user
-    .get("users") //.find({ email })
+    .get("users") 
     .find({ email })
     .value();
   if (user.length === 1) {
@@ -236,4 +290,31 @@ app.post("/get-user", (req, res) => {
   }
 });
 
+// Route để kiểm tra người dùng đã đăng ký bán hàng chưa
+app.post("/check-seller", (req, res) => {
+  const { email } = req.body;  // Lấy email từ request body
+
+  // Kiểm tra trong cơ sở dữ liệu xem người dùng đã đăng ký bán chưa
+  const seller = db
+    .get("sellers")
+    .find({ email })
+    .value();
+
+  if (seller) {
+    // Nếu tìm thấy, trả về thông tin người dùng
+    res.status(200).json({
+      success: true,
+      data: seller,
+    });
+  } else {
+    // Nếu không tìm thấy, trả về lỗi
+    res.status(404).json({
+      success: false,
+      message: "Seller not found",
+    });
+  }
+});
+
 app.listen(3080);
+
+

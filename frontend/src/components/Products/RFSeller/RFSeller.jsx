@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Thêm useNavigate từ react-router-dom
 import "./RFSeller.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   RFsellerStart,
   RFsellerFalse,
   RFsellerSuccess,
 } from "../../../redux/authSlice";
-import { useSelector } from "react-redux";
 import MapSearchPopUp from "../../MapApi/MapSearchPopUp";
+import axiosInstance from "../../../services/Axios";
+import { cloneDeep } from "lodash";
 
 function RFSeller() {
   const [shopName, setShopName] = useState("");
@@ -26,13 +27,16 @@ function RFSeller() {
 
   const [initSaved, setInitSaved] = useState(false);
 
+  const tts_user = useSelector((state) => state.auth.login.currentUser);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Khai báo navigate
+  const navigate = useNavigate();
 
   const [showPopup, setShowPopup] = useState(false);
 
   const RFseller = useSelector((state) => state.auth.RFseller);
 
+  // Kiểm tra trạng thái RFseller khi render hoặc thay đổi
   useEffect(() => {
     if (RFseller.success) {
       setShopName(RFseller.success.payload.shopName);
@@ -47,6 +51,26 @@ function RFSeller() {
       }
     }
   }, [RFseller, navigate]);
+
+  // Kiểm tra nếu người dùng đã đăng ký bán
+useEffect(() => {
+  if (tts_user?.payload.email) {
+    // Gửi request đến backend để kiểm tra người dùng có đăng ký bán chưa
+    const email = tts_user?.payload.email
+    axiosInstance
+      .post("/check-seller", { email })
+      .then((response) => {
+        if (response.data.success && response.data.data.initSaved) {
+          // Nếu người dùng đã đăng ký bán, điều hướng đến trang seller
+          dispatch(RFsellerSuccess({ payload: response.data.data }));
+          navigate("/products/purchase-order/seller/seller");
+        }
+      })
+      .catch((error) => {
+        navigate("/products/purchase-order/seller/RFseller");
+      });
+  }
+}, [RFseller, dispatch, navigate, tts_user?.payload.email]);  // Khi email thay đổi, sẽ kiểm tra lại
 
   const handleMarkerUpdate = (marker) => {
     console.log("Updated Marker:", marker);
@@ -101,21 +125,38 @@ function RFSeller() {
       return;
     }
 
-    dispatch(
-      RFsellerSuccess({
-        payload: {
-          shopName,
-          email,
-          phoneNumber,
-          pickupAddresses,
-          tax,
-          ID,
-          initSaved,
-        },
-      })
-    );
+    // Tạo đối tượng updateShopData
+  const updateShopData = {
+    shopName,
+    email,
+    phoneNumber,
+    pickupAddresses,
+    tax,
+    ID,
+    initSaved,
+  };
+  console.log(updateShopData);
 
-    // Set saved flag to true after successfully saving
+  axiosInstance
+  .post("/update-shop", updateShopData)
+  .then((response) => {
+    console.log(response.status);
+    if (response.status === 400 || response.status === 500) {
+      alert("Connection error with the server!");
+      return;
+    }
+    if (response.status === 200 || response.status === 201) {
+      const updatedShopDataClone = cloneDeep(RFseller);
+      updatedShopDataClone.payload = { ...updatedShopDataClone.payload, ...updateShopData };
+      console.log("ggggggggggggggggg: ",updatedShopDataClone);
+      dispatch(RFsellerSuccess(updatedShopDataClone));
+      setSaved(true);
+    }
+  })
+  .catch((error) => {
+    console.error("Error updating information:", error);
+    alert("Connection error with the server!");
+  });
     setSaved(true);
   };
 
@@ -129,12 +170,13 @@ function RFSeller() {
 
     if (currentStep < 4) {
       console.log("currentStep", currentStep);
-
+      
       setCurrentStep(currentStep + 1); // Move to the next step
       setSaved(false);
     } else {
       // Khi đến bước cuối, điều hướng tới trang sản phẩm
       setInitSaved(true);
+      
       dispatch(
         RFsellerSuccess({
           payload: {
@@ -148,8 +190,34 @@ function RFSeller() {
           },
         })
       );
-      console.log("initSaved", initSaved);
-      navigate("/products/purchase-order/seller/seller");
+
+      axiosInstance
+        .post("/update-shop", {
+          shopName,
+          email,
+          phoneNumber,
+          pickupAddresses,
+          tax,
+          ID,
+          initSaved: true,
+        })
+        .then((response) => {
+          console.log(response.status);
+          if (response.status === 400 || response.status === 500) {
+            alert("Connection error with the server!");
+            return;
+          }
+          if (response.status === 200 || response.status === 201) {
+            console.log("initSaved", initSaved);
+            navigate("/products/purchase-order/seller/seller");
+          }
+        })
+        .catch((error) => {
+          console.error("Error updating information:", error);
+          alert("Connection error with the server!");
+        });
+
+      
     }
   };
 
@@ -160,7 +228,7 @@ function RFSeller() {
   };
 
   return (
-    <div className="seller-container">
+    <div className="RFseller-container">
       <div className="progress-bar">
         <div className={`progress-step ${currentStep === 1 ? "active" : ""}`}>
           Shop Information

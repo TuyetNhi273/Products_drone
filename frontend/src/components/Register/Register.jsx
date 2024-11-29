@@ -11,12 +11,14 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleRegisterStart = () => {
-    dispatch(registerStart());
-  }
+  // Hàm xử lý đăng ký
   const handleRegister = (e) => {
     e.preventDefault();
+    
+    // Bắt đầu quá trình đăng ký
+    dispatch(registerStart());
 
+    // Gửi yêu cầu đến API đăng ký
     fetch("http://localhost:3080/register", {
       method: "POST",
       headers: {
@@ -32,19 +34,21 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "success") {
+          // Đăng ký thành công
           dispatch(registerSuccess());
-          // Save user data in localStorage
           const userData = { name, email, phone, password };
           localStorage.setItem("user", JSON.stringify(userData));
 
           alert("Đăng ký thành công!");
-          navigate("/login"); // Điều hướng về trang đăng nhập
+          navigate("/login"); // Điều hướng đến trang đăng nhập
         } else {
+          // Đăng ký thất bại
           dispatch(registerFalse());
           alert("Đăng ký thất bại. Vui lòng thử lại.");
         }
       })
       .catch((error) => {
+        // Xử lý lỗi nếu có
         dispatch(registerFalse());
         console.error("Lỗi khi đăng ký:", error);
         alert("Có lỗi xảy ra, vui lòng thử lại sau.");
@@ -71,8 +75,8 @@ function Register() {
           borderRadius: "8px",
         }}
       >
-        <h2 className="margin" style={{ textAlign: "center", marginBottom: "20px", fontSize: "24px", fontWeight: "bold"}}>Đăng ký</h2>
-        <form onSubmit={handleRegister} style={{ display: "block",}}>
+        <h2 className="margin" style={{ textAlign: "center", marginBottom: "20px", fontSize: "24px", fontWeight: "bold" }}>Đăng ký</h2>
+        <form onSubmit={handleRegister}>
           <div className="tk">
             <label>Tên tài khoản</label>
             <input
@@ -81,7 +85,6 @@ function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              click_listener={handleRegisterStart}
             />
           </div>
           <div className="tk">
@@ -93,7 +96,6 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="username"
-              click_listener={handleRegisterStart}
             />
           </div>
           <div className="tk">
@@ -105,7 +107,6 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              click_listener={handleRegisterStart}
             />
           </div>
           <div className="tk">
@@ -116,7 +117,6 @@ function Register() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               required
-              click_listener={handleRegisterStart}
             />
           </div>
 
@@ -141,4 +141,3 @@ function Register() {
 }
 
 export default Register;
-

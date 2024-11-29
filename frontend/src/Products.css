@@ -19,12 +19,15 @@
   padding: 0.2rem !important;
 }
 /* style cho phần thông tin người dùng trong sidebar */
+.user-profile {
+  border-bottom: 1px solid rgb(255, 255, 255);
+  padding: 1rem !important;
+}
 .user-info {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem 0 !important;
-  margin-top: 2rem !important;
+  margin: 3rem 0 1rem 0 !important;
 }
 .user-sell {
   display: flex;

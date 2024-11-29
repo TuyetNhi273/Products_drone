@@ -1,0 +1,52 @@
+.seller-container {
+    display: inline-block;
+    margin-top: 5rem !important;
+    width: 100vh;
+    height: 100vh;
+    background-color: #e2f1fa;
+    padding: 2rem !important;
+    border-radius: 0.5rem;
+}
+  
+.image-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+  
+.seller-info {
+    border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.seller-image {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+  
+.seller-name {
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1683c7;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none; /* Ngăn người dùng chọn văn bản */
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #132599;
+  }
+  
+  .button:active {
+    background-color: #1683c7;
+  }
+  

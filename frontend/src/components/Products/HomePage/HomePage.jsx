@@ -51,6 +51,7 @@ function HomePage() {
           </div>
         ))}
       </div>
+      <div className="merchandise">Merchandise</div>
     </div>
   );
 }

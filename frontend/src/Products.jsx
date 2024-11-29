@@ -25,7 +25,9 @@ function Products({ children }) {
   }, [tts_user]);
 
   useEffect(() => {
-    if (!location.pathname.startsWith("/products/purchase-order")) {
+    if (location.pathname.startsWith("/products/purchase-order")) {
+      setIsPurchaseOrderOpen(true);
+    }else {
       setIsPurchaseOrderOpen(false);
     }
   }, [location]);
@@ -34,13 +36,12 @@ function Products({ children }) {
     <div className="products-layout">
       <aside className="sidebar">
         <br />
-        <div style={{ borderBottom: "1px solid #E6E6FA" }}>
+        <div className="user-profile" >
           <div className="user-info">
             <img src={user.avatar} alt="Avatar" className="user-avatar" />
             <div>
               <p className="user-name">{user.name}</p>
-
-              <Link to="/products/purchase-order/seller" className="user-sell">
+              <Link to="/products/purchase-order/seller/RFseller" className="user-sell">
                 Regist for seller
               </Link>
             </div>
@@ -101,6 +102,7 @@ function Products({ children }) {
       <main className="content" style={{ position: "relative" }}>
         <Header />
         {children}
+        
       </main>
     </div>
   );
