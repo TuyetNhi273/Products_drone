@@ -2,6 +2,8 @@ import React from "react";
 import "./HomePage.css";
 import Slideshow from "../SliderImg/Slideshow";
 
+import Merchandise from "../Merchandise/Merchandise";
+
 import img1 from "../../../assets/image/img1.jpg";
 import img2 from "../../../assets/image/img2.jpg";
 import img3 from "../../../assets/image/img3.jpg";
@@ -51,7 +53,7 @@ function HomePage() {
           </div>
         ))}
       </div>
-      <div className="merchandise">Merchandise</div>
+      <Merchandise />
     </div>
   );
 }

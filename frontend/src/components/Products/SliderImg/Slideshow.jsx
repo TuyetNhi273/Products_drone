@@ -7,7 +7,7 @@ const Slideshow = ({ input, ratio, mode, timeout = 5000 }) => {
   const intervalRef = useRef(null);
 
   const ratioWH = ratio ? ratio.split(":")[0] / ratio.split(":")[1] : 1;
-
+ 
   // Handlers for navigation
   const backward = () => setSlideIndex(getNewSlideIndex(-1));
   const forward = () => setSlideIndex(getNewSlideIndex(1));

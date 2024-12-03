@@ -6,13 +6,13 @@ function Tracking() {
 
   // Danh sách tab
   const tabs = [
-    { id: "all", label: "Tất cả" },
-    { id: "confirmed", label: "Xác nhận" },
-    { id: "pickup", label: "Lấy hàng" },
-    { id: "delivered", label: "Chờ giao hàng", count: 2 },
-    { id: "completed", label: "Hoàn thành" },
-    { id: "canceled", label: "Đã hủy" },
-    { id: "refund", label: "Trả hàng/Hoàn tiền" },
+    { id: "all", label: "All" },
+    { id: "confirmed", label: "Confirmed" },
+    { id: "pickup", label: "Picked up" },
+    { id: "delivered", label: "Wait for delivery", count: 2 },
+    { id: "completed", label: "Completed" },
+    { id: "canceled", label: "Canceled" },
+    { id: "refund", label: "Return/Refund" },
   ];
 
   return (
@@ -35,7 +35,7 @@ function Tracking() {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm"
+          placeholder="You can search by shop's name, order ID, or product's name"
         />
       </div>
 
@@ -43,7 +43,7 @@ function Tracking() {
       <div className="content1">
         <h3>{tabs.find((tab) => tab.id === activeTab)?.label}</h3>
         <p style={{ position: "relative", top: "-320px" }}>
-          Hiển thị nội dung{" "}
+        Show content{" "}
         </p>
       </div>
     </div>

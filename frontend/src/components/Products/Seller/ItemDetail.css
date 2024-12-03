@@ -1,0 +1,170 @@
+/* Container for the whole item detail page */
+.item-detail-container {
+    padding: 2.2rem !important;
+    display: inline-block;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: aliceblue;
+  }
+  
+  /* Content container for the image and the information */
+  .item-detail-content {
+    display: flex;
+    max-width: 100rem;
+    width: 100%;
+  }
+  
+  /* Style for the image (left side) */
+  .item-image img {
+    width: 100%; 
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .item-image {
+    margin-right: 2rem !important;
+    width: 30rem;
+    height: 20rem;
+  }
+  .item-image-main{
+    margin-bottom: 1rem !important;
+    
+  }
+  /* Style for the information section (right side) */
+  .item-info {
+    margin-left: 1.5rem !important;
+    flex: 1;
+  }
+  
+  /* Styling for the item name */
+  .item-info h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+    width: 35rem;
+  }
+  
+  /* Styling for the price */
+  .itemss-price {
+    font-size: 1.2rem;
+    color: #f39c12;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Styling for the toppings section */
+  .item-toppings h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem !important;
+  }
+  
+  .item-toppings ul {
+    list-style-type: none;
+  }
+  
+  .item-toppings li {
+    font-size: 1.1rem;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Styling for the item description */
+  .item-description {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .slider-items{
+    max-width: 30rem;
+  }
+
+  .items-description{
+    margin-top: 1rem !important;
+    display: flex;
+  }
+  .description{
+    margin-left: 0.5rem !important;
+  }
+
+  .quantity-input {
+    width: 4rem;
+    text-align: center;
+}
+  
+.quantity-btn {
+    background-color: #388e3c;
+    color: #fff;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem !important;
+    margin-right: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .buy-now-btn {
+    background-color: green;
+    color: white;
+    height: 1.8rem;
+    
+  }
+  
+  .add-to-cart-btn {
+    background-color: orange;
+    color: white;
+    height: 1.8rem;
+  }
+
+.topping-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topping-btn {
+  padding: 0.5rem !important;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 1rem !important;
+  color: #555;
+}
+
+.topping-btn:hover {
+  background-color: #f5a623;
+}
+
+.topping-btn.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.total-price {
+  margin-top: 1rem !important;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f39c12;
+}
+
+.seller-infos {
+  border-bottom: 1px solid rgb(255, 255, 255);
+  margin-top: 8rem !important;
+  display: flex;
+}
+
+.image-containers {
+  position: relative;
+  overflow: hidden;
+}
+
+.seller-images {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+.seller-names {
+  font-weight: bold;
+  margin-left: 1rem !important;
+  margin-top: 2rem !important;
+}

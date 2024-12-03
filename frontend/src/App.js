@@ -15,6 +15,8 @@ import Tracking from "./components/Products/Purchase/Tracking";
 
 import RFSeller from "./components/Products/RFSeller/RFSeller";
 import Seller from "./components/Products/Seller/Seller";
+import AddItem from "./components/Products/Seller/AddItem";
+import ItemDetail from "./components/Products/Seller/ItemDetail";
 
 const App = () => {
   return (
@@ -56,6 +58,14 @@ const App = () => {
                   <Route
                     path="seller"
                     element={<Products children={<Seller />} />}
+                  />
+                  <Route
+                    path="add-item"
+                    element={<Products children={<AddItem />} />}
+                  />
+                  <Route 
+                    path="item/:id" 
+                    element={<Products children={<ItemDetail />}/>} 
                   />
                 </Route>
               </Route>

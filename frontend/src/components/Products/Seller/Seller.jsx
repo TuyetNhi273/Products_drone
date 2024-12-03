@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import avt from "../../../assets/image/avt.png";
-
+import { useNavigate } from 'react-router-dom'; // Sử dụng useNavigate thay vì useHistory
+import Items from "./Items";
 import "./Seller.css";
 
 const Seller = ({children}) => {
@@ -13,8 +14,11 @@ const Seller = ({children}) => {
     avatar: tts_user?.payload?.avatar || avt,
   });
 
+  // Sử dụng useNavigate thay vì useHistory
+  const navigate = useNavigate(); // Khai báo hook navigate
+
   useEffect(() => {
-    if (tts_user !== null  && tts_seller !== null) {
+    if (tts_user !== null && tts_seller !== null) {
       setUser({
         shopName: tts_seller?.payload?.shopName || "Ẩn Danh",
         avatar: tts_user?.payload?.avatar || avt,
@@ -22,6 +26,12 @@ const Seller = ({children}) => {
     }
     console.log(tts_seller?.payload?.shopName)
   }, [tts_user , tts_seller]);
+
+  // Hàm mở trang thêm món mới
+  const handleNewItemClick = () => {
+    // Sử dụng navigate để điều hướng đến trang thêm món
+    navigate("/products/purchase-order/seller/add-item"); // Đây là đường dẫn giả định của trang thêm món
+  };
 
   return (
     <div className="seller-container">
@@ -34,8 +44,13 @@ const Seller = ({children}) => {
         </div>
         <p className="seller-name">{user.shopName}</p>
       </div>
-      <div class="button">New Item</div>
-      <div>items</div>
+      
+      {/* Nút New Item */}
+      <div className="button" onClick={handleNewItemClick}>
+        New Item
+      </div>
+
+      <div><Items/></div>
     </div>
   );
 };
