@@ -18,6 +18,11 @@ const authSlice = createSlice({
       isfetching: false,
       error: false,
     },
+    ItemCart:{
+      isfetching: false,
+      error: false,
+      success: null,
+    }
   },
   reducers: {
     loginStart: (state) => {
@@ -57,6 +62,18 @@ const authSlice = createSlice({
       state.RFseller.isfetching = false;
       state.RFseller.error = true;
     },
+    ItemCartStart: (state) => {
+      state.ItemCart.isfetching = true;
+    },
+    ItemCartSuccess: (state, action) => {
+      state.ItemCart.isfetching = false;
+      state.ItemCart.success = action.payload;
+      state.ItemCart.error = false;
+    },
+    ItemCartFalse: (state) => {
+      state.ItemCart.isfetching = false;
+      state.ItemCart.error = true;
+    },
   },
 });
 
@@ -70,6 +87,9 @@ export const {
   RFsellerStart,
   RFsellerFalse,
   RFsellerSuccess,
+  ItemCartStart,
+  ItemCartSuccess,
+  ItemCartFalse,
 } = authSlice.actions;
 
 export default authSlice.reducer;

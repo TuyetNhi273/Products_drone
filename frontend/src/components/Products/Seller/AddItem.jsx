@@ -130,7 +130,7 @@ const AddItem = () => {
           />
         </div>
   
-        <div className="image-slider">
+        <div className="image-sliders">
           <button className="slider-arrow left" onClick={handlePrevImage}>{"<"}</button>
   
           <div className="image-thumbnails">
@@ -149,8 +149,8 @@ const AddItem = () => {
         </div>
       </div>
       
-      <div className="item-info">
-        <div className="item-name">
+      <div className="items-info">
+        <div className="items-name">
           <label>Item's name: </label>
           <input 
             type="text" 
@@ -160,7 +160,7 @@ const AddItem = () => {
           />
         </div>
 
-        <div className="item-price">
+        <div className="items-price">
           <label>Price: </label>
           <input 
             type="number" 
@@ -170,10 +170,10 @@ const AddItem = () => {
           />
         </div>
 
-        <div className="item-topping">
+        <div className="items-topping">
           <label>Topping: </label>
           <span 
-            className="add-topping" 
+            className="adds-topping" 
             onClick={addTopping}
             style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}
           >
@@ -181,32 +181,33 @@ const AddItem = () => {
           </span>
         </div>
 
-        {/* Hiển thị các topping đã thêm */}
-        {toppings.map((topping, index) => (
-          <div key={index} className="item-topping-input">
-            <div className="item-topping-name">
-              <label>Topping {index + 1}: </label>
-              <input
-                type="text"
-                value={topping.name}
-                onChange={(e) => handleToppingChange(index, "name", e.target.value)}
-                placeholder="Enter topping's name"
-              />
-            </div>
- 
-            <div className="item-topping-price">
-              <label>Price {index + 1}: </label>
-              <input
-                type="number"
-                value={topping.price}
-                onChange={(e) => handleToppingChange(index, "price", e.target.value)}
-                placeholder="Enter topping's name"
-              />
-            </div>
-          </div>
-        ))}
+        <div className="items-topping-input-container">
+          {toppings.map((topping, index) => (
+            <div key={index} className="items-topping-input">
+              <div className="items-topping-name">
+                <label>Topping {index + 1}: </label>
+                <input
+                  type="text"
+                  value={topping.name}
+                  onChange={(e) => handleToppingChange(index, "name", e.target.value)}
+                  placeholder="Enter topping's name"
+                />
+              </div>
 
-        <div className="item-description">
+              <div className="items-topping-price">
+                <label>Price {index + 1}: </label>
+                <input
+                  type="number"
+                  value={topping.price}
+                  onChange={(e) => handleToppingChange(index, "price", e.target.value)}
+                  placeholder="Enter topping's price"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="items-description">
           <label>Product Description: </label>
           <textarea
             value={description}

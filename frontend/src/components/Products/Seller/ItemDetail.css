@@ -33,7 +33,12 @@
   /* Style for the information section (right side) */
   .item-info {
     margin-left: 1.5rem !important;
-    flex: 1;
+    flex: 1 1 50%;
+    padding: 1.5rem !important;
+    background-color: #fff;
+    height: 28rem;
+    width: 40rem;
+    border-radius: 0.2rem;
   }
   
   /* Styling for the item name */
@@ -45,7 +50,7 @@
   }
   
   /* Styling for the price */
-  .itemss-price {
+  .item-price {
     font-size: 1.2rem;
     color: #f39c12;
     margin-bottom: 1rem !important;
@@ -58,30 +63,18 @@
     margin-bottom: 1rem !important;
   }
   
-  .item-toppings ul {
-    list-style-type: none;
-  }
-  
-  .item-toppings li {
-    font-size: 1.1rem;
-    margin-bottom: 1rem !important;
-  }
-  
   /* Styling for the item description */
   .item-description {
-    margin-top: 20px;
-    font-size: 16px;
+    margin-top: 1rem !important;
+    font-size: 1rem;
     color: #555;
+    display: flex;
   }
   
   .slider-items{
     max-width: 30rem;
   }
 
-  .items-description{
-    margin-top: 1rem !important;
-    display: flex;
-  }
   .description{
     margin-left: 0.5rem !important;
   }
@@ -96,23 +89,16 @@
     color: #fff;
     width: 1.5rem;
     height: 1.5rem;
+    margin-top: 1.5rem !important;
     margin-left: 1rem !important;
     margin-right: 1.5rem !important;
     margin-bottom: 1.5rem !important;
-  }
+}
   
-  .buy-now-btn {
-    background-color: green;
-    color: white;
-    height: 1.8rem;
-    
-  }
-  
-  .add-to-cart-btn {
-    background-color: orange;
-    color: white;
-    height: 1.8rem;
-  }
+.item-quantity {
+    display: flex;
+    align-items: center;
+}
 
 .topping-buttons {
   display: flex;
@@ -126,7 +112,6 @@
   border: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-bottom: 1rem !important;
   color: #555;
 }
 
@@ -148,7 +133,7 @@
 
 .seller-infos {
   border-bottom: 1px solid rgb(255, 255, 255);
-  margin-top: 8rem !important;
+  margin-top: 2rem !important;
   display: flex;
 }
 
@@ -167,4 +152,8 @@
   font-weight: bold;
   margin-left: 1rem !important;
   margin-top: 2rem !important;
+}
+
+.item-actions{
+  display: flex;
 }

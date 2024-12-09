@@ -14,7 +14,7 @@
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-right: 10rem !important;
+    margin-right: 8rem !important;
 }
   
 .main-image-container {
@@ -49,7 +49,7 @@
     background-color: rgb(30, 90, 142);
 }
   
-.image-slider {
+.image-sliders {
     display: flex;
     justify-content: flex-start;
     overflow-x: auto;
@@ -84,56 +84,80 @@
     transform: scale(1.1);
 }
   
-.item-info {
+.items-info {
     flex: 1 1 50%;
     padding: 1.5rem !important;
     background-color: #fff;
+    height: 32rem;
+    width: 35rem;
 }
   
 
-.item-name input,
-.item-price input,
-.item-topping input,
-.item-topping-price input,
+.items-name input,
+.items-price input,
+.items-topping input,
+.items-topping-price input,
 textarea{
     width: 100%;
-    padding: 1rem !important;
+    padding: 0.8rem !important;
     margin-top: 0.2rem !important;
 }
   
 textarea {
     height: 100px;
 }
-
-.item-actions button {
-    width: 7rem;
-    margin-top: 0.5rem !important;
-    margin-right: 2rem !important;
-}
+/* Cài đặt chiều cao cố định và cho phép cuộn */
+.items-topping-input-container {
+    max-height: 7.5rem; /* Bạn có thể thay đổi chiều cao này */
+    overflow-y: auto; /* Thanh cuộn sẽ xuất hiện nếu vượt quá chiều cao */
+  }
   
-.add-topping {
+  /* Nếu muốn thêm thanh cuộn cuộn mượt */
+.items-topping-input-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+.items-topping-input-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+.items-topping-input-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+.adds-topping {
     cursor: pointer;
     color: blue;
     text-decoration: underline;
     padding: 1rem !important;
   }
   
-.item-topping-input, .item-topping-price {
-    margin-top: 1rem !important;
+.items-topping-price {
+    margin-top: 0.8rem !important;
 }
   
-.item-topping-name {
+.items-topping-input {
+    margin-bottom: 10px;
+  }
+
+.items-topping-name {
     margin-left: 1rem !important;
 }
-.item-topping-price {
+.items-topping-price {
     margin-left: 1rem !important;
 }
-.item-topping {
-    margin-bottom: 1.5rem !important;
+.items-topping {
+    margin-bottom: 1rem !important;
 }
 .save-btn {
     width: 5rem;
     background-color: rgb(58, 147, 225);
     color: white;
     margin-left: 15rem !important;
+}
+
+.items-description textarea{
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555;
 }

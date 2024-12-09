@@ -30,13 +30,21 @@ const storage = multer.diskStorage({
       cb(null, Date.now() + path.extname(file.originalname)); // Tên file duy nhất
   },
 });
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 50 * 1024 * 1024 // Giới hạn 50MB cho mỗi file tải lên
+  }
+});
 
 console.log(jwtSecretKey);
 // Set up CORS and JSON middlewares
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Tăng kích thước tối đa của request body (dành cho các JSON)
+app.use(express.json({ limit: '50mb' }));  // Giới hạn 50MB
+// Tăng giới hạn kích thước cho các form data (dành cho upload file)
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Basic home route for the API
@@ -49,8 +57,6 @@ app.get("/", (_req, res) => {
 // Register a new user
 app.post("/register", (req, res) => {
   const { email, password, name, phone } = req.body;
-
-  console.log("info", req.body);
 
   // Look up the user entry in the database
   const user = db
@@ -312,6 +318,84 @@ app.post("/check-seller", (req, res) => {
       success: false,
       message: "Seller not found",
     });
+  }
+});
+
+// Endpoint để lưu món hàng
+app.post("/save-item", (req, res) => {
+  const {avatar, email, id, images, itemName, price, description, toppings } = req.body;
+
+  // Kiểm tra các trường dữ liệu có đầy đủ không
+  if (!itemName || !price || !description) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  // Tạo item mới
+  const newItem = {
+    avatar,
+    email,
+    id,
+    images,
+    itemName,
+    price,
+    description,
+    toppings
+  };
+
+  // Lưu vào database hoặc file
+  db.get("items")
+    .push(newItem)
+    .write();
+
+  res.status(200).json({ message: "Item saved successfully", item: newItem });
+});
+
+// Endpoint để lấy thông tin món hàng theo ID
+app.get("/get-item/:id", (req, res) => {
+  const { id } = req.params;
+
+  // Lấy món hàng từ database
+
+  
+  const item = db.get("items").find({ id }).value();
+  if (item) {
+    const user = db.get("users").find({ email: item.email }).value();
+    if (user) {
+      const seller = db.get("sellers").find({ email: user.email }).value();
+      if (seller) {
+        res.status(200).json({item:{
+          ...item,
+          shopName: seller.shopName,
+          avatar: user.avatar,
+        }});
+      }
+    }
+    res.status(404).json({ message: "Item not found" });
+  } else {
+    res.status(404).json({ message: "Item not found" });
+  }
+});
+
+app.get("/get-items", (req, res) => {
+
+  // Lấy món hàng từ database
+  const items = db.get("items").value();
+  // console.log("ddts",items)
+  if (items) {
+    res.status(200).json({ items });
+  } else {
+    res.status(404).json({ message: "Items not found" });
+  }
+});
+
+app.get("/get-items-seller/:email", (req, res) => {
+  const { email } = req.params;
+  // Lấy người dùng từ database
+  const items = db.get("items").filter({ email }).value();
+  if (items) {  
+    res.status(200).json({ items });
+  } else {
+    res.status(404).json({ message: "items not found" });
   }
 });
 

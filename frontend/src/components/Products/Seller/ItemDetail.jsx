@@ -5,6 +5,8 @@ import "./ItemDetail.css";
 import SliderImg from "../SliderImg/SliderImg";
 import { useSelector } from "react-redux";
 import avt from "../../../assets/image/avt.png";
+import AddToCart from "../Seller/AddToCart";
+import BuyNow from "../Seller/BuyNow";
 
 function ItemDetail() {
   const { id } = useParams(); // Lấy id từ URL
@@ -13,6 +15,8 @@ function ItemDetail() {
   const [quantity, setQuantity] = useState(1);
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [mainImage, setMainImage] = useState(""); // State cho ảnh chính
+  const [payload, setPayload] = useState({});
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const tts_user = useSelector((state) => state.auth.login.currentUser);
   const tts_seller = useSelector((state) => state.auth.RFseller.success);
@@ -27,7 +31,7 @@ function ItemDetail() {
       .get(`/get-item/${id}`) 
       .then((d) => {
         if (d.status === 200) {
-          console.log(d.data.item);
+          // console.log(d.data.item);
           setUser({
             shopName: d.data.item.shopName || "Ẩn Danh",
             avatar: d.data.item.avatar || avt,
@@ -48,23 +52,40 @@ function ItemDetail() {
       });
   }, [id]);
 
+  useEffect(() => {
+    if (!item) return;
+    setPayload({
+      ...item,
+      quantity,
+      toppings: selectedToppings,
+      totalPrice: totalPrice,
+    });
+  }, [item, quantity, selectedToppings, totalPrice]);
+
+  // Tính tổng giá trị của topping đã chọn
+  const selectedToppingPrice = Math.floor(
+    selectedToppings.reduce((total, toppingName) => {
+      const topping = item?.toppings?.find((t) => t.name === toppingName);
+      return total + (topping ? parseInt(topping.price) : 0);
+    }, 0)
+  );
+
+   // Tính tổng giá trị của món hàng cộng với topping
+   useEffect(() => {
+    if (!item) return;
+    const calculatedTotalPrice = (item.price * quantity) + selectedToppingPrice;
+    setTotalPrice(calculatedTotalPrice);
+  }, [item?.price, quantity, selectedToppingPrice, item]);
+
+
   if (!item) {
     return <p>Loading...</p>;
   }
 
+  
   // Xử lý sự kiện tăng/giảm số lượng
   const increaseQuantity = () => setQuantity(quantity + 1);
   const decreaseQuantity = () => setQuantity(Math.max(1, quantity - 1));
-
-  // Hàm xử lý mua ngay
-  const handleBuyNow = () => {
-    alert("Mua ngay!");
-  };
-
-  // Hàm xử lý thêm vào giỏ hàng
-  const handleAddToCart = () => {
-    alert("Thêm vào giỏ hàng!");
-  };
 
   const handleSelectTopping = (topping) => {
     setSelectedToppings((prev) => {
@@ -76,17 +97,8 @@ function ItemDetail() {
     });
   };
 
-  // Tính tổng giá trị của topping đã chọn
-  const selectedToppingPrice = Math.floor(
-    selectedToppings.reduce((total, toppingName) => {
-      const topping = item.toppings.find((t) => t.name === toppingName);
-      return total + (topping ? parseInt(topping.price) : 0);
-    }, 0)
-  );
 
-  // Tính tổng giá trị của món hàng cộng với topping
-  const totalPrice = (item.price * quantity) + selectedToppingPrice;
-
+ 
   // Hàm xử lý khi click vào ảnh trong slider
   const handleImageClick = (image) => {
     setMainImage(image); // Cập nhật ảnh chính khi click vào ảnh trong slider
@@ -110,7 +122,7 @@ function ItemDetail() {
         </div>
         <div className="item-info">
           <h2 >{item.itemName}</h2>
-          <p className="itemss-price">{item.price} VND</p>
+          <p className="item-price">{item.price} VND</p>
           {item.toppings && item.toppings.length > 0 && (
             <div className="item-toppings">
               <h4>Toppings:</h4>
@@ -145,12 +157,8 @@ function ItemDetail() {
             </button>
           </div>
           <div className="item-actions">
-            <button onClick={handleBuyNow} className="buy-now-btn">
-              Buy Now
-            </button>
-            <button onClick={handleAddToCart} className="add-to-cart-btn">
-              Add to cart
-            </button>
+            <BuyNow />
+            <AddToCart payload={payload} />
           </div>
           <div className="total-price">
             Tổng giá trị: {totalPrice} VND
@@ -166,7 +174,7 @@ function ItemDetail() {
         </div>
         <p className="seller-names">{user.shopName}</p>
       </div>
-      <div className="items-description">
+      <div className="item-description">
         <div>Mô tả sản phẩm:</div>
         <p className="description">{item.description}</p>
       </div>
@@ -175,3 +183,4 @@ function ItemDetail() {
 }
 
 export default ItemDetail;
+

@@ -29,19 +29,19 @@ function Items() {
   };
 
   return (
-    <div className="items-display">
-      <div className="items-list">
+    <div className="itemss-display">
+      <div className="itemss-list">
         {items && items.length > 0 ? (
           items.map((item) => (
             <div
-              className="items-card"
+              className="itemss-card"
               key={item.id}
               onClick={() => handleItemClick(item.id)} // Gọi handleItemClick khi click vào món hàng
             >
-              <img className="items-image" src={item.images[0]} alt={item.itemName} />
-              <div className="items-details">
-                <h3 className="items-name">{item.itemName}</h3>
-                <p className="items-price">{item.price} VND</p>
+              <img className="itemss-image" src={item.images[0]} alt={item.itemName} />
+              <div className="itemss-details">
+                <h3 className="itemss-name">{item.itemName}</h3>
+                <p className="itemss-price">{item.price} VND</p>
               </div>
             </div>
           ))

@@ -78,3 +78,20 @@ body {
   margin-left: -0.5rem !important;
   margin-right: 1rem !important;
 }
+
+.header-cart {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 50%;
+}
